@@ -1,0 +1,2 @@
+2025-04-05 22:47:32 [WRN] [ProductService] Failed to determine the https port for redirect.
+2025-04-05 22:47:39 [INF] [ProductService] Product "3cfaab0f-1609-45bf-aa55-bf6afd20f713" retrieved successfully

@@ -1,0 +1,278 @@
+[
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.AuthController",
+    "Method": "RefreshPageAsync",
+    "RelativePath": "api/Auth/refresh-page",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.Auth.UserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.AuthController",
+    "Method": "RefreshTokenAsync",
+    "RelativePath": "api/Auth/refresh-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.Auth.UserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.AuthController",
+    "Method": "SignInAsync",
+    "RelativePath": "api/Auth/sign-in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Auth.SignInRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.Auth.UserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.AuthController",
+    "Method": "SignUpAsync",
+    "RelativePath": "api/Auth/sign-up",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Auth.SignUpRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
+    "Method": "CreateProductAsync",
+    "RelativePath": "api/Product/create-product",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Product.CreateProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
+    "Method": "EditProductAsync",
+    "RelativePath": "api/Product/edit-product",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Product.EditProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.ProductDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
+    "Method": "TrackProductAsync",
+    "RelativePath": "api/Product/track-product",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.ProductDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.SettingController",
+    "Method": "CreateAdminAsync",
+    "RelativePath": "api/Setting/create-admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.SettingController",
+    "Method": "SeedProjectStatusAsync",
+    "RelativePath": "api/Setting/seed-project-statuses",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.SettingController",
+    "Method": "SeedProjectTypesAsync",
+    "RelativePath": "api/Setting/seed-project-types",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.SettingController",
+    "Method": "SeedRolesAsync",
+    "RelativePath": "api/Setting/seed-roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[YellowBlossom.Presentation.WeatherForecast, YellowBlossom.Presentation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]
