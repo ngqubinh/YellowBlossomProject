@@ -1,7 +1,0 @@
-2025-04-26 13:36:58 [WRN] [] Failed to determine the https port for redirect.
-2025-04-26 13:36:58 [ERR] [ProductService] User does not have permission to create product.
-2025-04-26 13:38:07 [INF] [ProductService] This message will be logged with ProductService context
-2025-04-26 13:38:07 [INF] [TaskService] This message will be logged with TaskService context
-2025-04-26 13:38:07 [INF] [TeamService] This message will be logged with TeamService context
-2025-04-26 13:38:07 [INF] [Taskervice] This message will be logged with TaskService context
-2025-04-26 13:38:07 [INF] [ProjectService] This message will be logged with ProjectService context

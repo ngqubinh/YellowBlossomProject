@@ -1,2 +1,0 @@
-2025-05-01 04:09:50 [WRN] [] Failed to determine the https port for redirect.
-2025-05-01 04:09:50 [WRN] [ProductService] User lacks admin role to track product "8fd6bc74-47bd-48a1-89e6-13ef1d2608b5"
