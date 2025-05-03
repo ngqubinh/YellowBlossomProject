@@ -1,0 +1,16 @@
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\bin\Debug\net8.0\YellowBlossom.Application.deps.json
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\bin\Debug\net8.0\YellowBlossom.Application.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\bin\Debug\net8.0\YellowBlossom.Application.pdb
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\bin\Debug\net8.0\YellowBlossom.Domain.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\bin\Debug\net8.0\YellowBlossom.Domain.pdb
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.csproj.AssemblyReference.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.AssemblyInfoInputs.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.AssemblyInfo.cs
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.csproj.CoreCompileInputs.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBl.2801242D.Up2Date
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\refint\YellowBlossom.Application.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.pdb
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\ref\YellowBlossom.Application.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Application\obj\Debug\net8.0\YellowBlossom.Application.sourcelink.json

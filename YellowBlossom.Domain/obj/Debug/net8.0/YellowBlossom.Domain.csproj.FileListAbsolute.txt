@@ -1,0 +1,13 @@
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\bin\Debug\net8.0\YellowBlossom.Domain.deps.json
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\bin\Debug\net8.0\YellowBlossom.Domain.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\bin\Debug\net8.0\YellowBlossom.Domain.pdb
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.csproj.AssemblyReference.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.AssemblyInfoInputs.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.AssemblyInfo.cs
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.csproj.CoreCompileInputs.cache
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\refint\YellowBlossom.Domain.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.pdb
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\ref\YellowBlossom.Domain.dll
+D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Domain\obj\Debug\net8.0\YellowBlossom.Domain.sourcelink.json

@@ -1,0 +1,6 @@
+@YellowBlossom.Presentation_HostAddress = http://localhost:5250
+
+GET {{YellowBlossom.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

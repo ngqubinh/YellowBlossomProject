@@ -1,0 +1,6 @@
+{
+  "YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\YellowBlossom\\src\\YellowBlossom\\YellowBlossom.Application",
+  "YellowBlossom.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\YellowBlossom\\src\\YellowBlossom\\YellowBlossom.Domain",
+  "YellowBlossom.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\YellowBlossom\\src\\YellowBlossom\\YellowBlossom.Infrastructure",
+  "YellowBlossom.Presentation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\YellowBlossom\\src\\YellowBlossom\\YellowBlossom.Presentation"
+}

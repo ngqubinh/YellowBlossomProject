@@ -1,0 +1,9 @@
+2025-05-02 22:32:03 [WRN] [] Failed to determine the https port for redirect.
+2025-05-02 22:36:41 [WRN] [ProductService] User lacks admin role to track product "8fd6bc74-47bd-48a1-89e6-13ef1d2608b5"
+2025-05-02 22:37:05 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-02 22:37:05 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGZkMmZmNC1mYTBlLTRlNzQtYjNiOS1iMDljMTAwNTcyNjgiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0NjIwMDIyNSwiZXhwIjoxNzQ4NzkyMjI1LCJpYXQiOjE3NDYyMDAyMjUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.sm9eHMRSVfrixSwZcVKVY1b_3Ad3md4giSojPmFBXDs","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-02 22:46:17 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-02 22:46:17 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-02 22:46:17 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-02 22:46:17 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-02 22:46:17 [INF] [ProjectService] This message will be logged with ProjectService context
