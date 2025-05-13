@@ -123,6 +123,22 @@ namespace YellowBlossom.Presentation.Controllers
             GeneralResponse res = await this._project.DeleteProjectAsync(projectId);
             return Ok(res);
         }
+
+        [HttpPut("projects/{projectId}/update-status")]
+        public ActionResult<ProjectDTO> UpdateProjectStatus(Guid projectId, [FromBody] EditProjectStatusRequest request)
+        {
+            if (projectId == Guid.Empty)
+            {
+                return BadRequest("Project ID is required.");
+            }
+            ProjectDTO res = this._project.UpdateProjectStatus(projectId, request);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(res);
+            }
+            return Ok(res);
+        }
+
         public class AcceptInviteRequest
         {
             public string Token { get; set; } = string.Empty;

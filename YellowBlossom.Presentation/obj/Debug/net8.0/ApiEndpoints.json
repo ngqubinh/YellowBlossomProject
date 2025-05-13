@@ -629,6 +629,37 @@
     ]
   },
   {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProjectController",
+    "Method": "UpdateProjectStatus",
+    "RelativePath": "api/Project/projects/{projectId}/update-status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "YellowBlossom.Application.DTOs.Project.EditProjectStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.ProjectDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "YellowBlossom.Presentation.Controllers.SettingController",
     "Method": "CreateAdminAsync",
     "RelativePath": "api/Setting/create-admin",

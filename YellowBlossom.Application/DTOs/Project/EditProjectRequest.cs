@@ -5,4 +5,9 @@
         public Guid ProjectStatusId { get; set; }
         public Guid ProjectTypeId { get; set; }
     }
+
+    public class EditProjectStatusRequest
+    {
+        public Guid ProjectStatusId { get; set; }
+    }
 }

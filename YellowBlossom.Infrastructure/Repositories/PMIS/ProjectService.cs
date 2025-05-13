@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
@@ -18,12 +19,14 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
         private readonly ApplicationDbContext _dbContext;
         private readonly IHttpContextAccessor _http;
         private readonly ILogger<ProjectService> _logger;
-        
-        public ProjectService(ApplicationDbContext dbContext, IHttpContextAccessor http, ILogger<ProjectService> logger)
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public ProjectService(ApplicationDbContext dbContext, IHttpContextAccessor http, ILogger<ProjectService> logger, RoleManager<IdentityRole> roleManager)
         {
             this._dbContext = dbContext;
             this._http = http;
             this._logger = logger;
+            this._roleManager = roleManager;
             LogContext.PushProperty("ServiceName", "ProjectService");
         }
 
@@ -235,8 +238,8 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 List<string> allowedRoles = new List<string> { StaticUserRole.ADMIN, StaticUserRole.ProjectManager };
                 if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
                 {
-                    Console.WriteLine("User does not have permission to view projects.");
-                    return new ProjectDTO { Message = "User does not have permission to view projects." };
+                    Console.WriteLine("User does not have permission to edit project.");
+                    return new ProjectDTO { Message = "User does not have permission to edit project." };
                 }
 
                 if (model == null)
@@ -323,7 +326,6 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new ProjectDTO { Message = "Dự án không tồn tại." };
                 }
 
-                // Kiểm tra các điều kiện khác (từ code gốc)
                 if (!string.IsNullOrEmpty(project.ProductManager))
                 {
                     return new ProjectDTO { Message = "Dự án đã có project manager rồi." };
@@ -343,6 +345,30 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new ProjectDTO { Message = "Người này đã là project manager ở dự án khác." };
                 }
 
+                // Kiểm tra và thêm role ProjectManager nếu cần
+                var projectManagerRole = await _roleManager.FindByNameAsync("ProjectManager");
+                if (projectManagerRole == null)
+                {
+                    projectManagerRole = new IdentityRole("ProjectManager");
+                    var roleResult = await _roleManager.CreateAsync(projectManagerRole);
+                    if (!roleResult.Succeeded)
+                    {
+                        return new ProjectDTO { Message = "Không thể tạo role ProjectManager: " + string.Join(", ", roleResult.Errors.Select(e => e.Description)) };
+                    }
+                }
+
+                // Kiểm tra xem user đã có role ProjectManager chưa
+                var hasRole = await _dbContext.UserRoles
+                    .AnyAsync(ur => ur.UserId == userId && ur.RoleId == projectManagerRole.Id);
+                if (!hasRole)
+                {
+                    _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                    {
+                        UserId = userId,
+                        RoleId = projectManagerRole.Id
+                    });
+                }
+
                 // Cập nhật project manager
                 project.ProductManager = userId;
 
@@ -350,10 +376,9 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 inviteToken.InvitedUserId = userId;
                 inviteToken.IsUsed = true;
 
-                // Lưu cả hai thay đổi
+                // Lưu tất cả thay đổi
                 await _dbContext.SaveChangesAsync();
 
-                // Trả về ProjectDTO
                 return new ProjectDTO
                 {
                     ProjectId = project.ProjectId,
@@ -521,11 +546,59 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             }
         }
 
-        #region extra functions
-        private bool HasAnyRole(HttpContext context, List<string> roles)
+        public ProjectDTO UpdateProjectStatus(Guid projectId, EditProjectStatusRequest request)
         {
-            ClaimsPrincipal user = context!.User;
-            return roles.Any(role => user.IsInRole(role));
+            if (projectId == Guid.Empty)
+            {
+                this._logger.LogError("Project ID is empty.");
+                return new ProjectDTO { Message = "Project ID is empty." };
+            }
+
+            try
+            {
+                // Raw SQL query to update the project status
+                string sqlQuery = "UPDATE Projects SET ProjectStatusId = {0} WHERE ProjectId = {1}";
+
+                // Execute the raw SQL query
+                int rowsAffected = this._dbContext.Database.ExecuteSqlRaw(sqlQuery, request.ProjectStatusId, projectId);
+
+                if (rowsAffected == 0)
+                {
+                    this._logger.LogError("Project not found or no rows affected.");
+                    return new ProjectDTO { Message = "Project not found or no rows affected." };
+                }
+
+                // Optionally, retrieve the updated project to return as DTO
+                PMIS_Project? project = this._dbContext.Projects
+                    .FirstOrDefault(p => p.ProjectId == projectId);
+
+                if (project == null)
+                {
+                    this._logger.LogError("Project not found after update.");
+                    return new ProjectDTO { Message = "Project not found after update." };
+                }
+
+                ProjectDTO projectDTO = Mapper.MapProjectToProjectDTO(project);
+                return projectDTO;
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.Message);
+                return new ProjectDTO { Message = ex.Message };
+            }
+        }
+
+        #region extra functions
+        private bool HasAnyRole(HttpContext httpContext, List<string> allowedRoles)
+        {
+            // Lấy danh sách vai trò từ HttpContext.User
+            var userRoles = httpContext.User.Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value)
+                .ToList();
+
+            // Kiểm tra xem user có bất kỳ vai trò nào trong allowedRoles không
+            return userRoles.Any(role => allowedRoles.Contains(role, StringComparer.OrdinalIgnoreCase));
         }
         #endregion
     }

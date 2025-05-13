@@ -57,7 +57,7 @@ namespace YellowBlossom.Infrastructure.DependencyInjection
             {
                 options.AddPolicy("client_cors", builder =>
                 {
-                    builder.WithOrigins("http://127.0.0.1:5501")
+                    builder.WithOrigins("http://localhost:3000")
                       .AllowAnyHeader()
                       .AllowAnyMethod()
                       .AllowCredentials();

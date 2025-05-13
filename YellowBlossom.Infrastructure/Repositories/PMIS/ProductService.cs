@@ -179,16 +179,26 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     };
                 }
 
-                if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
+                //if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
+                //{
+                //    this._logger.LogError("User does not have permission to get products.");
+                //    return new List<ProductDTO>
+                //    {
+                //        new ProductDTO {Message = "User does not have permission to get products."}
+                //    };
+                //}
+
+                string? userId = this._http.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrWhiteSpace(userId))
                 {
-                    this._logger.LogError("User does not have permission to get products.");
-                    return new List<ProductDTO>
-                    {
-                        new ProductDTO {Message = "User does not have permission to get products."}
-                    };
+                    this._logger.LogError("User ID not found in HttpContext.");
+                    return null;
                 }
 
-                List<PMIS_Product> products = await this._dbContext.Products.ToListAsync();
+                List<PMIS_Product> products = await this._dbContext.Products
+                    .Where(p => p.CreatedBy == userId)
+                    .Include(p => p.User)
+                    .ToListAsync();
                 if (products == null)
                 {
                     this._logger.LogInformation("There is not products information. Please check again!");

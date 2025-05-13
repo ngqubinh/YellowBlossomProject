@@ -61,10 +61,6 @@ namespace YellowBlossom.Infrastructure.Repositories.Auth
             User? user = await FindUserByEmailAsync(model.Email);
             if (user == null) return new UserResponse($"{model.Email} is not found");
 
-            Console.WriteLine("SignIn attempt: Email={0}, Password={1}",
-                model.Email ?? "null",
-                model.Password ?? "null");
-
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, model.Password!, false);
             Console.WriteLine("SignIn result: Succeeded={0}", result.Succeeded);
             if (!result.Succeeded) return new UserResponse("The password is wrong");
@@ -164,17 +160,18 @@ namespace YellowBlossom.Infrastructure.Repositories.Auth
             }
             await _context.SaveChangesAsync();
 
-            //var cookieOptions = new CookieOptions()
-            //{
-            //    Expires = refreshToken.ExpiresDateUTC,
-            //    IsEssential = true,
-            //    HttpOnly = true,
+            var cookieOptions = new CookieOptions()
+            {
+                Expires = refreshToken.ExpiresDateUTC,
+                HttpOnly = true, // Blocks JavaScript access (XSS protection)
+                IsEssential = true, // Bypasses consent checks
+                Path = "/", // Available on all routes
 
-            //    SameSite = SameSiteMode.Lax,
-            //    Secure = false,
-            //};
+                SameSite = SameSiteMode.Lax,
+                Secure = false,
+            };
 
-            //_http.HttpContext!.Response.Cookies.Append("token", refreshToken.Token!, cookieOptions);
+            _http.HttpContext!.Response.Cookies.Append("token", refreshToken.Token!, cookieOptions);
         }
 
         private async Task<bool> IsValidRefreshTokenAsync(string userId, string token)
