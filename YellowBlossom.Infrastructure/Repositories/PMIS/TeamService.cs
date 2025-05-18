@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
+using YellowBlossom.Domain.Models.PMIS;
 using YellowBlossom.Application.DTOs.General;
 using YellowBlossom.Application.DTOs.Team;
 using YellowBlossom.Application.Interfaces.PMIS;
 using YellowBlossom.Domain.Constants;
 using YellowBlossom.Domain.Models.Auth;
-using YellowBlossom.Domain.Models.PMIS;
 using YellowBlossom.Infrastructure.Data;
 using YellowBlossom.Infrastructure.Services;
 
@@ -341,6 +341,184 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             {
                 Console.WriteLine($"Error updating user lock status: {ex.Message}");
                 return new GeneralResponse(false, "Internal server error.");
+            }
+        }
+
+        public async Task<List<UserDTO>> GetAllUsersAsync()
+        {
+            // Kiểm tra HttpContext
+            if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+            {
+                Console.WriteLine("HttpContext or User is null.");
+                return new List<UserDTO>();
+            }
+
+            // Kiểm tra quyền hạn của người thực hiện (Chỉ `Admin` mới có quyền)
+            if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
+            {
+                Console.WriteLine("User does not have permission to manage lock status.");
+                return new List<UserDTO>();
+            }
+
+            string? executorUserId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+            if (string.IsNullOrEmpty(executorUserId))
+            {
+                Console.WriteLine("Executor User ID not found in HttpContext.");
+                return new List<UserDTO>();
+            }
+
+            List<User> users = await this._dbContext.Users
+                .Where(u => u.Id !=  executorUserId)
+                .ToListAsync();
+
+            List<UserDTO> userDTOs = Mapper.MapUserToUserDTOByList(users);
+            return userDTOs;
+        }
+
+
+        public async Task<GeneralResponse> GenerateTeamInvitationAsync(string email, Guid teamId, int expiryDays)
+        {
+            try
+            {
+                // Check permission
+                if (!_http.HttpContext.User.IsInRole(StaticUserRole.ADMIN))
+                {
+                    return new GeneralResponse(false, "Permission denied");
+                }
+
+                // Validate team
+                var team = await _dbContext.Teams.FindAsync(teamId);
+                if (team == null) return new GeneralResponse(false, "Team not found");
+
+                // Check existing invitation
+                var existingInvite = await _dbContext.InvitesW
+                    .FirstOrDefaultAsync(i => i.InvitedEmail == email && i.TeamId == teamId);
+
+                if (existingInvite != null)
+                {
+                    if (existingInvite.Status == InvitationStatus.Pending)
+                        return new GeneralResponse(false, "Invitation already sent");
+
+                    if (existingInvite.Status == InvitationStatus.Accepted)
+                        return new GeneralResponse(false, "User already joined");
+                }
+
+                // Generate token
+                var token = Guid.NewGuid().ToString("N");
+                var expiresAt = DateTime.UtcNow.AddDays(expiryDays);
+
+                // Create invitation
+                var invitation = new PMIS_InviteW
+                {
+                    Token = token,
+                    TeamId = teamId,
+                    InvitedEmail = email,
+                    ExpiresAt = expiresAt,
+                    Status = InvitationStatus.Pending
+                };
+
+                _dbContext.InvitesW.Add(invitation);
+                await _dbContext.SaveChangesAsync();
+
+                var invitationLink = $"http://localhost:5250/api/team/accept-invite?token={token}";
+                var emailBody = $@"
+            <h1>You're invited to join team {team.TeamName}!</h1>
+            <p>Click this link to accept: <a href='{invitationLink}'>{invitationLink}</a></p>
+            <p>Link will expire in {expiryDays} days</p>
+        ";
+
+                await MailService.SendEmailAsync(
+           invitation.InvitedEmail,
+           $"Invitation to join {team.TeamName}",
+           emailBody
+       );
+
+
+
+                return new GeneralResponse(true, token);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating invitation");
+                return new GeneralResponse(false, ex.Message);
+            }
+        }
+
+        public async Task<GeneralResponse> AcceptTeamInvitationAsync(string token)
+        {
+            try
+            {
+                // Get current user
+                var currentUserId = GeneralService.GetUserIdFromContext(_http.HttpContext);
+                if (string.IsNullOrEmpty(currentUserId))
+                    return new GeneralResponse(false, "User not authenticated");
+
+                var user = await _userManager.FindByIdAsync(currentUserId);
+                if (user == null)
+                    return new GeneralResponse(false, "User not found");
+
+                // Validate invitation
+                var invitation = await _dbContext.InvitesW
+                    .FirstOrDefaultAsync(i => i.Token == token);
+
+                if (invitation == null)
+                    return new GeneralResponse(false, "Invalid token");
+
+                if (invitation.Status != InvitationStatus.Pending)
+                    return new GeneralResponse(false, "Invitation already used");
+
+                if (invitation.ExpiresAt < DateTime.UtcNow)
+                    return new GeneralResponse(false, "Invitation expired");
+
+                // Verify email match
+                if (!user.Email.Equals(invitation.InvitedEmail, StringComparison.OrdinalIgnoreCase))
+                    return new GeneralResponse(false, "Email does not match invitation");
+
+                // Check existing membership
+                var existingMember = await _dbContext.UserTeams
+                    .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == invitation.TeamId);
+
+                if (existingMember)
+                    return new GeneralResponse(false, "Already in team");
+
+                // Add to team
+                var userTeam = new PMIS_UserTeam
+                {
+                    UserId = currentUserId,
+                    TeamId = invitation.TeamId,
+                    AssignedDate = DateTime.UtcNow
+                };
+
+                _dbContext.UserTeams.Add(userTeam);
+
+                // Update invitation
+                invitation.Status = InvitationStatus.Accepted;
+                invitation.InvitedUserId = currentUserId;
+
+                await _dbContext.SaveChangesAsync();
+
+                var confirmationBody = $@"
+            <h1>Welcome to {invitation.Team.TeamName}!</h1>
+            <p>You have successfully joined the team.</p>
+            <p>Team details:</p>
+            <ul>
+                <li>Team name: {invitation.Team.TeamName}</li>
+                <li>Description: {invitation.Team.TeamDescription}</li>
+            </ul>
+        ";
+
+                await MailService.SendEmailAsync(
+                    user.Email,
+                    $"Welcome to {invitation.Team.TeamName}",
+                    confirmationBody
+                );
+
+                return new GeneralResponse(true, "Joined team successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error accepting invitation");
+                return new GeneralResponse(false, ex.Message);
             }
         }
     }

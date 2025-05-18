@@ -139,6 +139,21 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
+        [HttpGet] [Route("project-statuses")]
+        public async Task<ActionResult<List<ProjectStatusDTO>>> GetProjectStatusesProcess()
+        {
+            List<ProjectStatusDTO> res = await this._project.GetProjectStatusesAsync();
+            return Ok(res);
+        }
+
+        [HttpGet] [Route("projects/related")]
+        public async Task<ActionResult<List<ProjectDTO>>> GetProjectsRelatedToPMProccess()
+        {
+            List<ProjectDTO> res = await this._project.GetProjectsRelatedToProjectManager();
+            return Ok(res);
+        }
+
+
         public class AcceptInviteRequest
         {
             public string Token { get; set; } = string.Empty;

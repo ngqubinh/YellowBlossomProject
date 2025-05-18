@@ -16,6 +16,7 @@
         public TaskStatusDTO? TaskStatus { get; set; }
         public ProjectDTO? Project { get; set; }
         public UserDTO? User { get; set; }
+        public TeamDTO? Team { get; set; }
         public string? Message { get; set; }
     }
 }

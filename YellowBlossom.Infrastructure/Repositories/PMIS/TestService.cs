@@ -225,19 +225,19 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new List<TestRunDTO>();
                 }
 
-                string? userId = GeneralService.GetUserIdFromContext(_http.HttpContext!);
-                if (string.IsNullOrEmpty(userId))
-                {
-                    Console.WriteLine("User ID not found in HttpContext.");
-                    return new List<TestRunDTO>();
-                }
+                //string? userId = GeneralService.GetUserIdFromContext(_http.HttpContext!);
+                //if (string.IsNullOrEmpty(userId))
+                //{
+                //    Console.WriteLine("User ID not found in HttpContext.");
+                //    return new List<TestRunDTO>();
+                //}
 
                 // Kiểm tra nếu user là Project Manager
-                if (!_http.HttpContext!.User.IsInRole(StaticUserRole.ProjectManager))
-                {
-                    _logger.LogWarning("User does not have permission to get list of test runs.");
-                    return new List<TestRunDTO>();
-                }
+                //if (!_http.HttpContext!.User.IsInRole(StaticUserRole.ProjectManager))
+                //{
+                //    _logger.LogWarning("User does not have permission to get list of test runs.");
+                //    return new List<TestRunDTO>();
+                //}
 
                 var testRuns = await this._dbContext.TestRuns
                     .Select(tr => Mapper.MapTestRunToTestRunDTO(tr))

@@ -126,6 +126,8 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 _logger.LogInformation("Retrieving task data from database.");
                 List<PMIS_Task> tasks = await _dbContext.Tasks
                     .Where(t => t.ProjectId == projectId)
+                    .Include(t => t.TaskStatus)
+                    .Include(t => t.Priority)
                     .ToListAsync();
 
                 _logger.LogInformation("Mapping task to DTO.");
@@ -235,6 +237,10 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 this._logger.LogInformation("Retriving data...");
                 var task = await this._dbContext.Tasks
                     .Where(t => t.TaskId == taskId)
+                    .Include(p => p.Priority)
+                    .Include(p => p.User)
+                    .Include(p => p.TaskStatus)
+                    .Include(p => p.Team)
                     .FirstOrDefaultAsync();
                 if (task == null)
                 {
@@ -479,6 +485,13 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 }
             });
             return new GeneralResponse(true, "Send deadline email successfully.");
+        }
+
+        public async Task<List<PriorityDTO>> GetPriorityListAsync()
+        {
+            List<PMIS_Priority> priorities = await this._dbContext.Priorities.ToListAsync();
+            List<PriorityDTO> priorityDTOs = Mapper.MapPriorityToPriorityByList(priorities);
+            return priorityDTOs;
         }
     }
 }

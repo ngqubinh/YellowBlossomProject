@@ -158,6 +158,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
 
                 List<PMIS_Project> projects = await this._dbContext.Projects
                     .Where(p => p.ProductId == productId)
+                    .Include(p => p.ProjectStatus)
                     .ToListAsync();
 
                 if (!projects.Any())
@@ -519,7 +520,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 }
 
                 // Kiểm tra quyền hạn của user
-                List<string> allowedRoles = new List<string> { StaticUserRole.ProjectManager };
+                List<string> allowedRoles = new List<string> { StaticUserRole.ADMIN };
                 if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
                 {
                     Console.WriteLine("User does not have permission to delete this project.");
@@ -550,41 +551,81 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
         {
             if (projectId == Guid.Empty)
             {
-                this._logger.LogError("Project ID is empty.");
+                _logger.LogError("Project ID is empty.");
                 return new ProjectDTO { Message = "Project ID is empty." };
             }
 
             try
             {
-                // Raw SQL query to update the project status
-                string sqlQuery = "UPDATE Projects SET ProjectStatusId = {0} WHERE ProjectId = {1}";
-
-                // Execute the raw SQL query
-                int rowsAffected = this._dbContext.Database.ExecuteSqlRaw(sqlQuery, request.ProjectStatusId, projectId);
-
-                if (rowsAffected == 0)
-                {
-                    this._logger.LogError("Project not found or no rows affected.");
-                    return new ProjectDTO { Message = "Project not found or no rows affected." };
-                }
-
-                // Optionally, retrieve the updated project to return as DTO
-                PMIS_Project? project = this._dbContext.Projects
-                    .FirstOrDefault(p => p.ProjectId == projectId);
-
+                // Retrieve the project entity
+                var project = _dbContext.Projects.Find(projectId);
                 if (project == null)
                 {
-                    this._logger.LogError("Project not found after update.");
-                    return new ProjectDTO { Message = "Project not found after update." };
+                    _logger.LogError("Project not found for ProjectId: {ProjectId}", projectId);
+                    return new ProjectDTO { Message = "Project not found." };
                 }
 
-                ProjectDTO projectDTO = Mapper.MapProjectToProjectDTO(project);
-                return projectDTO;
+                // Update the project status
+                project.ProjectStatusId = request.ProjectStatusId;
+                _dbContext.SaveChanges();
+
+                // Map the updated project to DTO and return
+                return Mapper.MapProjectToProjectDTO(project);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update project status for ProjectId: {ProjectId}", projectId);
+                return new ProjectDTO { Message = ex.Message };
+            }
+        }
+
+        public async Task<List<ProjectStatusDTO>> GetProjectStatusesAsync()
+        {
+            var projectStatuses = await this._dbContext.ProjectStatuses.ToListAsync();
+            return Mapper.MapProjectStatusToProjectStatusByList(projectStatuses);
+        }
+
+        public async Task<List<ProjectDTO>> GetProjectsRelatedToProjectManager()
+        {
+            try
+            {
+                if (this._http == null || this._http.HttpContext == null)
+                {
+                    this._logger.LogError("HttpContextAccessor or HttpContext is null.");
+                    return new List<ProjectDTO>();
+                }
+
+                if (_http.HttpContext.User == null)
+                {
+                    _logger.LogError("User is null.");
+                    return new List<ProjectDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(_http.HttpContext);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    _logger.LogError("User ID not found in HttpContext.");
+                    return new List<ProjectDTO>();
+                }
+
+                if (!_http.HttpContext.User.IsInRole(StaticUserRole.ProjectManager))
+                {
+                    _logger.LogWarning("User does not have permission to assign team to project.");
+                    return new List<ProjectDTO>();
+                }
+
+                List<PMIS_Project> projects = await this._dbContext.Projects
+                    .Where(p => p.ProductManager == userId)
+                    .Include(p => p.ProjectStatus)
+                    .ToListAsync();
+
+                List<ProjectDTO> projectDTOs = Mapper.MapProjectToProjectDTOByList(projects);
+                return projectDTOs;
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex.Message);
-                return new ProjectDTO { Message = ex.Message };
+                throw;
             }
         }
 

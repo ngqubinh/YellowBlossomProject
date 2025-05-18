@@ -239,6 +239,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     .FirstOrDefaultAsync();
                 if (userTeamId == Guid.Empty)
                 {
+                    Console.WriteLine("Empty.");
                     return new List<BugDTO>();
                 }
 

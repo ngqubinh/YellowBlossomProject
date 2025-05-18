@@ -15,5 +15,7 @@ namespace YellowBlossom.Application.Interfaces.PMIS
         Task<ProjectTeamDTO> AssignTeamToProjectAsync(Guid projectId, AssignTeamToProjectRequest model);
         Task<GeneralResponse> DeleteProjectAsync(Guid projectId);
         ProjectDTO UpdateProjectStatus(Guid projectId, EditProjectStatusRequest request);
+        Task<List<ProjectStatusDTO>> GetProjectStatusesAsync();
+        Task<List<ProjectDTO>> GetProjectsRelatedToProjectManager();
     }
 }

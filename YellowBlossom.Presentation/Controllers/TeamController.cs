@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using YellowBlossom.Application.DTOs.General;
 using YellowBlossom.Application.DTOs.Team;
 using YellowBlossom.Application.Interfaces.PMIS;
+using YellowBlossom.Domain.Constants;
+using YellowBlossom.Infrastructure.Repositories.PMIS;
 
 namespace YellowBlossom.Presentation.Controllers
 {
@@ -90,6 +93,44 @@ namespace YellowBlossom.Presentation.Controllers
         {
             GeneralResponse res = await this._team.UpdateUserLockStatusAsync(request);
             return Ok(res);
+        }
+
+        [HttpGet("teams/users")]
+        public async Task<ActionResult<List<UserDTO>>> GetAllUsersProcess()
+        {
+            List<UserDTO> res = await this._team.GetAllUsersAsync();
+            return Ok(res);    
+        }
+
+        [HttpPost("invite")]
+        [Authorize(Roles = StaticUserRole.ADMIN)]
+        public async Task<IActionResult> GenerateInvitation([FromBody] InviteRequest request)
+        {
+            var result = await _team.GenerateTeamInvitationAsync(
+                request.Email,
+                request.TeamId,
+                request.ExpiryDays
+            );
+
+            return result.Success
+                ? Ok(result)
+                : BadRequest(result);
+        }
+        public class InviteRequest
+        {
+            public string Email { get; set; }
+            public Guid TeamId { get; set; }
+            public int ExpiryDays { get; set; } = 7;
+        }
+
+        [HttpPost("accept-invite")]
+        [Authorize]
+        public async Task<IActionResult> AcceptInvitation([FromQuery] string token)
+        {
+            var result = await _team.AcceptTeamInvitationAsync(token);
+            return result.Success
+                ? Ok(result)
+                : BadRequest(result);
         }
     }
 }

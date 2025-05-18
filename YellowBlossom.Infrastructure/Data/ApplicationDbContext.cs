@@ -19,6 +19,7 @@ namespace YellowBlossom.Infrastructure.Data
         public DbSet<PMIS_PhaseStatus> PhaseStatuses { get; set; }
         public DbSet<PMIS_Phase> Phases { get; set; }
         public DbSet<PMIS_Invite> Invites { get; set; }
+        public DbSet<PMIS_InviteW> InvitesW { get; set; }
         public DbSet<PMIS_Priority> Priorities { get; set; }
         public DbSet<PMIS_TaskStatus> TaskStatuses { get; set; }
         public DbSet<PMIS_Task> Tasks { get; set; }

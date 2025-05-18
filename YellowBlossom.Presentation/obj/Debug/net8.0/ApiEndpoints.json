@@ -547,6 +547,26 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.ProjectController",
+    "Method": "GetProjectStatusesProcess",
+    "RelativePath": "api/Project/project-statuses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.ProjectStatusDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProjectController",
     "Method": "DeleteProjectAsync",
     "RelativePath": "api/Project/projects/{projectId}/delete",
     "HttpMethod": "DELETE",
@@ -650,6 +670,26 @@
     "ReturnTypes": [
       {
         "Type": "YellowBlossom.Application.DTOs.General.ProjectDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProjectController",
+    "Method": "GetProjectsRelatedToPMProccess",
+    "RelativePath": "api/Project/projects/related",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.ProjectDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -877,104 +917,6 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
-    "Method": "DeleteTaskAsync",
-    "RelativePath": "api/Task/{projectId}/{taskId}/delete",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
-    "Method": "GetTaskDetails",
-    "RelativePath": "api/Task/{projectId}/{taskId}/details",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
-    "Method": "EditTaskAsync",
-    "RelativePath": "api/Task/{projectId}/{taskId}/edit",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "model",
-        "Type": "YellowBlossom.Application.DTOs.Task.EditTaskRequest",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
     "Method": "UpdateTaskStatusAsyn",
     "RelativePath": "api/Task/{projectId}/{taskId}/update-status",
     "HttpMethod": "POST",
@@ -1087,6 +1029,125 @@
     ]
   },
   {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "DeleteTaskAsync",
+    "RelativePath": "api/Task/tasks/{taskId}/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "GetTaskDetails",
+    "RelativePath": "api/Task/tasks/{taskId}/details",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "EditTaskAsync",
+    "RelativePath": "api/Task/tasks/{taskId}/edit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Task.EditTaskRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "GetAllPrioritiesProcess",
+    "RelativePath": "api/Task/tasks/priorities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.PriorityDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
+    "Method": "AcceptInvitation",
+    "RelativePath": "api/Team/accept-invite",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
     "Method": "AssignUserToTeam",
     "RelativePath": "api/Team/assign-user-to-team",
@@ -1160,6 +1221,22 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
+    "Method": "GenerateInvitation",
+    "RelativePath": "api/Team/invite",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "YellowBlossom.Presentation.Controllers.TeamController\u002BInviteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
     "Method": "GetTeams",
     "RelativePath": "api/Team/teams",
     "HttpMethod": "GET",
@@ -1195,6 +1272,26 @@
     "ReturnTypes": [
       {
         "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
+    "Method": "GetAllUsersProcess",
+    "RelativePath": "api/Team/teams/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.UserDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -55,7 +55,7 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
         
-        [HttpGet("{projectId}/{taskId}/details")]
+        [HttpGet("tasks/{taskId}/details")]
         public async Task<ActionResult<TaskDTO>> GetTaskDetails(Guid taskId)
         {
             TaskDTO res = await this._task.GetTaskDetailsAsync(taskId);
@@ -73,7 +73,7 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
-        [HttpPost("{projectId}/{taskId}/edit")]
+        [HttpPost("tasks/{taskId}/edit")]
         public async Task<ActionResult<TaskDTO>> EditTaskAsync(Guid taskId, EditTaskRequest model)
         {
             if(taskId == Guid.Empty)
@@ -88,7 +88,7 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
-        [HttpPost("{projectId}/{taskId}/delete")]
+        [HttpDelete("tasks/{taskId}/delete")]
         public async Task<ActionResult<GeneralResponse>> DeleteTaskAsync(Guid taskId)
         {
             GeneralResponse res = await this._task.DeleteTaskAsync(taskId);
@@ -103,6 +103,13 @@ namespace YellowBlossom.Presentation.Controllers
         public async Task<ActionResult<GeneralResponse>> SendDeadlineReminderAsync()
         {
             GeneralResponse res = await this._task.SendDeadlineReminderAsync();
+            return Ok(res);
+        }
+
+        [HttpGet] [Route("tasks/priorities")]
+        public async Task<ActionResult<List<PriorityDTO>>> GetAllPrioritiesProcess()
+        {
+            List<PriorityDTO> res = await this._task.GetPriorityListAsync();
             return Ok(res);
         }
     }

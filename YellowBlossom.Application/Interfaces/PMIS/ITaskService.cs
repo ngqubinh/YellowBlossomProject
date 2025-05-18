@@ -13,5 +13,6 @@ namespace YellowBlossom.Application.Interfaces.PMIS
         Task<TaskDTO> EditTaskAsync(Guid taskId, EditTaskRequest model);
         Task<GeneralResponse> DeleteTaskAsync(Guid taskId);
         Task<GeneralResponse> SendDeadlineReminderAsync();
+        Task<List<PriorityDTO>> GetPriorityListAsync();
     }
 }

@@ -45,6 +45,15 @@ namespace YellowBlossom.Infrastructure.Services
             };
         }
 
+        public static List<UserDTO> MapUserToUserDTOByList(List<User> users)
+        {
+            return users.Select(user => new UserDTO
+            {
+                Email = user.Email!,
+                FullName= user.FullName,
+            }).ToList();
+        }
+
         public static PhaseStatusDTO MapPhaseStatusToPhaseStatusDTO(PMIS_PhaseStatus phaseStatus)
         {
             return new PhaseStatusDTO
@@ -76,6 +85,15 @@ namespace YellowBlossom.Infrastructure.Services
                 ProjectStatusId = projectStatus.ProjectStatusId,
                 ProjectStatusName = projectStatus.ProjectStatusName,
             };
+        }
+
+        public static List<ProjectStatusDTO> MapProjectStatusToProjectStatusByList(List<PMIS_ProjectStatus> projectStatuses)
+        {
+            return projectStatuses.Select(projectStatus => new ProjectStatusDTO
+            {
+                ProjectStatusId = projectStatus.ProjectStatusId,
+                ProjectStatusName = projectStatus.ProjectStatusName
+            }).ToList();
         }
 
         public static ProjectTypeDTO MapProjectTypeToProjectTypeDTO(PMIS_ProjectType projectType)
@@ -123,7 +141,8 @@ namespace YellowBlossom.Infrastructure.Services
                 UserId = project.UserId,
                 UserDTO = project.User != null ? MapUserToUserDTO(project.User) : null,
                 ProjectTypeId = project.ProjectTypeId,
-                ProjectTypeDTO = project.ProjectType != null ? MapProjectTypeToProjectTypeDTO(project.ProjectType) : null
+                ProjectTypeDTO = project.ProjectType != null ? MapProjectTypeToProjectTypeDTO(project.ProjectType) : null,
+                ProductManager = project.ProductManager
             }).ToList();
         }
     
@@ -135,6 +154,15 @@ namespace YellowBlossom.Infrastructure.Services
                 PriorityName = priority.PriorityName,
                 PriorityDescription = priority.PriorityDescription,
             };
+        }
+
+        public static List<PriorityDTO> MapPriorityToPriorityByList(List<PMIS_Priority> priorityList)
+        {
+            return priorityList.Select(priority => new PriorityDTO
+            {
+                PriorityId = priority.PriorityId,
+                PriorityName = priority.PriorityName,
+            }).ToList();
         }
     
         public static TaskStatusDTO MapTaskStatusToTastStatusDTO(PMIS_TaskStatus taskStatus)
@@ -164,6 +192,7 @@ namespace YellowBlossom.Infrastructure.Services
                 TaskStatus = task.TaskStatus != null ? MapTaskStatusToTastStatusDTO(task.TaskStatus) : null,
                 Project = task.Project != null ? MapProjectToProjectDTO(task.Project) : null,
                 User = task.User != null ? MapUserToUserDTO(task.User) : null,
+                Team = task.Team != null ? MapTeamToTeamDTO(task.Team) : null,
             };
         }
     

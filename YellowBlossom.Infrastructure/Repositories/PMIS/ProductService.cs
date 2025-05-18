@@ -179,22 +179,19 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     };
                 }
 
-                //if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
-                //{
-                //    this._logger.LogError("User does not have permission to get products.");
-                //    return new List<ProductDTO>
-                //    {
-                //        new ProductDTO {Message = "User does not have permission to get products."}
-                //    };
-                //}
-
                 string? userId = this._http.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (string.IsNullOrWhiteSpace(userId))
                 {
                     this._logger.LogError("User ID not found in HttpContext.");
-                    return null;
+                    return new List<ProductDTO>{
+                        new ProductDTO { Message = "User ID not found in HttpContext."}
+                    };
                 }
 
+                //string query = "SELECT \"ProductId\", \"ProductName\", \"Version\", \"CreatedAt\" FROM public.\"Products\" WHERE \"CreatedBy\" = {0}";
+                //List<PMIS_Product> products = await this._dbContext.Products
+                //    .FromSqlRaw(query, userId)
+                //    .ToListAsync();
                 List<PMIS_Product> products = await this._dbContext.Products
                     .Where(p => p.CreatedBy == userId)
                     .Include(p => p.User)
@@ -274,6 +271,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             }
             return true;
         }
+
         #endregion
     }
 }
