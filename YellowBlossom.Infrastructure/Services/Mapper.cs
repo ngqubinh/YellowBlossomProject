@@ -142,7 +142,8 @@ namespace YellowBlossom.Infrastructure.Services
                 UserDTO = project.User != null ? MapUserToUserDTO(project.User) : null,
                 ProjectTypeId = project.ProjectTypeId,
                 ProjectTypeDTO = project.ProjectType != null ? MapProjectTypeToProjectTypeDTO(project.ProjectType) : null,
-                ProductManager = project.ProductManager
+                ProductManager = project.ProductManager,
+                ProjectTeam = project.ProjectTeams != null ? MapProjectTeamToProjectTeamDTOByList(project.ProjectTeams) : null,
             }).ToList();
         }
     
@@ -172,6 +173,15 @@ namespace YellowBlossom.Infrastructure.Services
                 TaskStatusId = taskStatus.TaskStatusId,
                 TaskStatusName = taskStatus.TaskStatusName,
             };
+        }
+
+        public static List<TaskStatusDTO> MapTaskStatusToTaskStatusDTOByList(List<PMIS_TaskStatus> taskStatuses)
+        {
+            return taskStatuses.Select(taskStatus => new TaskStatusDTO
+            {
+                TaskStatusId = taskStatus.TaskStatusId,
+                TaskStatusName = taskStatus.TaskStatusName,
+            }).ToList();
         }
         
         public static TaskDTO MapTaskToTaskDTO(PMIS_Task task)
@@ -217,6 +227,33 @@ namespace YellowBlossom.Infrastructure.Services
             }).ToList();
         }
 
+        public static List<TaskTestDTO> MapTaskToTaskTestDTOByList(List<PMIS_Task> tasks)
+        {
+            return tasks.Select(task => new TaskTestDTO
+            {
+                TaskId = task.TaskId,
+                Title = task.Title,
+                Description = task.Description,
+                StartDate = task.StartDate,
+                EndDate = task.EndDate,
+                PriorityId = task.PriorityId,
+                TastStatusId = task.TaskStatusId,
+                ProjectId = task.ProjectId,
+                CreatedBy = task.CreatedBy,
+                AssignedTo = task.AssignedTeam,
+                Priority = task.Priority != null ? MapPriorityToPriorityDTO(task.Priority) : null,
+                TaskStatus = task.TaskStatus != null ? MapTaskStatusToTastStatusDTO(task.TaskStatus) : null,
+                Project = task.Project != null ? MapProjectToProjectDTO(task.Project) : null,
+                User = task.User != null ? MapUserToUserDTO(task.User) : null,
+                TestCase = task.TestCases != null ? MapTestCaseToTestCaseDTOByList(task.TestCases) : null,
+                TestRunDTO = task.TestRuns != null ? MapTestRunToTestRunDTOByList(task.TestRuns) : null,
+                TestRunTestCases = task.TestRuns
+                    .SelectMany(testRun => testRun.TestRunTestCases)
+                    .Select(trtc => MapTestRunTestCaseToTestRunTestCaseDTO(trtc))
+                    .ToList()
+            }).ToList();
+        }
+
         public static TeamDTO MapTeamToTeamDTO(PMIS_Team team)
         {
             return new TeamDTO
@@ -226,6 +263,7 @@ namespace YellowBlossom.Infrastructure.Services
                 TeamName = team.TeamName,
                 CreatedBy = team.CreatedBy,
                 CreatedDate = team.CreatedDate,
+                Users= team.UserTeams.Select(ut => MapUserToUserDTO(ut.User)).ToList()
             };
         }
     
@@ -264,7 +302,21 @@ namespace YellowBlossom.Infrastructure.Services
                 User = projectTeam.User != null ? MapUserToUserDTO(projectTeam.User) : null,
             };
         }
-    
+
+        public static List<ProjectTeamDTO> MapProjectTeamToProjectTeamDTOByList(List<PMIS_ProjectTeam> projectTeams)
+        {
+            return projectTeams.Select(projectTeam => new ProjectTeamDTO
+            {
+                ProjectId = projectTeam.ProjectId,
+                TeamId = projectTeam.TeamId,
+                RoleOfTeam = projectTeam.RoleOfTeam,
+                AssignedDate = projectTeam.AssignedDate,
+                CreatedBy = projectTeam.CreatedBy,
+                Project = projectTeam.Project != null ? MapProjectToProjectDTO(projectTeam.Project) : null,
+                User = projectTeam.User != null ? MapUserToUserDTO(projectTeam.User) : null,
+            }).ToList();
+        }
+
         public static TestTypeDTO MapTestTypeToTestTypeDTO(PMIS_TestType testType)
         {
             return new TestTypeDTO
@@ -274,7 +326,17 @@ namespace YellowBlossom.Infrastructure.Services
                 TestDescription = testType.TestDescription,
             };
         }
-    
+
+        public static List<TestTypeDTO> MapTestTypeToTestTypeDTOByList(List<PMIS_TestType> testTypes)
+        {
+            return testTypes.Select(testType => new TestTypeDTO
+            {
+                TestTypeId = testType.TestTypeId,
+                TestTypeName = testType.TestTypeName,
+                TestDescription = testType.TestDescription,
+            }).ToList();
+        }
+
         public static TestCaseStatusDTO MapTestCaseStatusToTestCaseStatusDTO(PMIS_TestCaseStatus tcs)
         {
             return new TestCaseStatusDTO
@@ -282,6 +344,15 @@ namespace YellowBlossom.Infrastructure.Services
                 TestCaseStatudId = tcs.TestCaseStatusId,
                 TestCaseStatusName = tcs.TestCaseStatusName,
             };
+        }
+
+        public static List<TestCaseStatusDTO> MapTestCaseStatusToTestCaseStatusDTOByList(List<PMIS_TestCaseStatus> tcss)
+        {
+            return tcss.Select(tcs => new TestCaseStatusDTO
+            {
+                TestCaseStatudId = tcs.TestCaseStatusId,
+                TestCaseStatusName = tcs.TestCaseStatusName,
+            }).ToList();
         }
     
         public static TestCaseDTO MapTestCaseToTestCaseDTO(PMIS_TestCase testCase)
@@ -304,7 +375,28 @@ namespace YellowBlossom.Infrastructure.Services
                 TestCaseStatus = testCase.TestCaseStatus != null ? MapTestCaseStatusToTestCaseStatusDTO(testCase.TestCaseStatus) : null
             };
         }
-    
+
+        public static List<TestCaseDTO> MapTestCaseToTestCaseDTOByList(List<PMIS_TestCase> testCases)
+        {
+            return testCases.Select(testCase => new TestCaseDTO
+            {
+                TestCaseId = testCase.TestCaseId,
+                Title = testCase.Title,
+                Description = testCase.Description,
+                Steps = testCase.Steps,
+                ExpectedResult = testCase.ExpectedResult,
+                ActualResult = testCase.ActualResult,
+                TaskId = testCase.TaskId,
+                CreatedBy = testCase.CreateBy,
+                TestTypeId = testCase.TestTypeId,
+                TestCaseStatusId = testCase.TestCaseStatusId,
+                Task = testCase.Task != null ? MapTaskToTaskDTO(testCase.Task) : null,
+                Team = testCase.Team != null ? MapTeamToTeamDTO(testCase.Team) : null,
+                TestType = testCase.TestType != null ? MapTestTypeToTestTypeDTO(testCase.TestType) : null,
+                TestCaseStatus = testCase.TestCaseStatus != null ? MapTestCaseStatusToTestCaseStatusDTO(testCase.TestCaseStatus) : null
+            }).ToList();
+        }
+
         public static TestRunStatusDTO MapTestRunStatusToTestRunStatusDTO(PMIS_TestRunStatus testRunStatus)
         {
             return new TestRunStatusDTO
@@ -312,6 +404,15 @@ namespace YellowBlossom.Infrastructure.Services
                 TestRunStatusId = testRunStatus.TestRunStatusId,
                 TestRunStatusName = testRunStatus.TestRunStatusName,
             };
+        }
+
+        public static List<TestRunStatusDTO> MapTestRunStatusToTestRunStatusDTOByList(List<PMIS_TestRunStatus> testRunStatuses)
+        {
+            return testRunStatuses.Select(testRunStatus => new TestRunStatusDTO
+            {
+                TestRunStatusId = testRunStatus.TestRunStatusId,
+                TestRunStatusName = testRunStatus.TestRunStatusName,
+            }).ToList();
         }
     
         public static TestRunDTO MapTestRunToTestRunDTO(PMIS_TestRun testRun)
@@ -332,7 +433,27 @@ namespace YellowBlossom.Infrastructure.Services
                 TestRunStatus = testRun.TestRunStatus != null ? MapTestRunStatusToTestRunStatusDTO(testRun.TestRunStatus) : null,
             };
         }
-    
+
+        public static List<TestRunDTO> MapTestRunToTestRunDTOByList(List<PMIS_TestRun> testRuns)
+        {
+            return testRuns.Select(testRun => new TestRunDTO
+            {
+                TestRunId = testRun.TestRunId,
+                Title = testRun.Title,
+                Description = testRun.Description,
+                RunDate = testRun.RunDate,
+                TaskId = testRun.TaskId,
+                CreatedBy = testRun.CreatedBy,
+                ExecutedBy = testRun.ExecutedBy,
+                TestRunStatusId = testRun.TestRunStatusId,
+                Task = testRun.Task != null ? MapTaskToTaskDTO(testRun.Task) : null,
+                CreatedByTeam = testRun.CreatedByTeam != null ? MapTeamToTeamDTO(testRun.CreatedByTeam) : null,
+                ExecutedByTeam = testRun.ExecutedByTeam != null ? MapTeamToTeamDTO(testRun.ExecutedByTeam) : null,
+                TestRunStatus = testRun.TestRunStatus != null ? MapTestRunStatusToTestRunStatusDTO(testRun.TestRunStatus) : null,
+            }).ToList();
+        }
+
+
         public static TestRunTestCaseDTO MapTestRunTestCaseToTestRunTestCaseDTO(PMIS_TestRunTestCase trtc)
         {
             return new TestRunTestCaseDTO
@@ -346,7 +467,22 @@ namespace YellowBlossom.Infrastructure.Services
                 TestCaseStatus = trtc.TestCaseStatus != null ? MapTestCaseStatusToTestCaseStatusDTO(trtc.TestCaseStatus) : null,
             };
         }
-    
+
+        public static List<TestRunTestCaseDTO> MapTestRunTestCaseToTestRunTestCaseDTOByList(List<PMIS_TestRunTestCase> testRunTestCases)
+        {
+            return testRunTestCases.Select(trtc => new TestRunTestCaseDTO
+            {
+                TestRunId = trtc.TestRunId,
+                TestCaseId = trtc.TestCaseId,
+                ActualResult = trtc.ActualResult,
+                TestRun = trtc.TestRun != null ? MapTestRunToTestRunDTO(trtc.TestRun) : null,
+                TestCase = trtc.TestCaseStatus != null ? MapTestCaseToTestCaseDTO(trtc.TestCase) : null,
+                TestCaseStatusId = trtc.TestCaseStatusId,
+                TestCaseStatus = trtc.TestCaseStatus != null ? MapTestCaseStatusToTestCaseStatusDTO(trtc.TestCaseStatus) : null,
+            }).ToList();
+        }
+
+
         public static BugDTO MapBugToBugDTO(PMIS_Bug bug)
         {
             return new BugDTO

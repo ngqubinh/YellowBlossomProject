@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YellowBlossom.Testing")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b3db9a3620a60240da583a2cda4e36e7e9ed005")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26fe560733b3c38eb964b2d6f1307e4cb55ed2c9")]
 [assembly: System.Reflection.AssemblyProductAttribute("YellowBlossom.Testing")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YellowBlossom.Testing")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

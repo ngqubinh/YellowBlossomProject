@@ -16,6 +16,7 @@
         public Guid ProjectTypeId { get; set; }
         public ProjectTypeDTO? ProjectTypeDTO { get; set; }
         public string ProductManager { get; set; } = string.Empty;
+        public List<ProjectTeamDTO>? ProjectTeam { get; set; }
         public string? Message { get; set; }
     }
 }

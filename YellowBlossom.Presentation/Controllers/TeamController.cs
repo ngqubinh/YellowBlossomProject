@@ -132,5 +132,18 @@ namespace YellowBlossom.Presentation.Controllers
                 ? Ok(result)
                 : BadRequest(result);
         }
+
+
+        [HttpGet("teams/{teamId}/details")]
+        //[Authorize(Roles = StaticUserRole.ADMIN)]
+        public async Task<ActionResult<TeamDTO>> GetTeamDetailsProcess(Guid teamId)
+        {
+            TeamDTO res = await this._team.GetTeamDetailsAsync(teamId);
+            if (res == null)
+            {
+                return BadRequest(res);
+            }
+            return Ok(res);
+        }
     }
 }

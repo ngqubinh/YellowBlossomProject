@@ -281,11 +281,11 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new TaskDTO { Message = "User ID not found in HttpContext." };
                 }
 
-                if (!_http.HttpContext.User.IsInRole(StaticUserRole.Developer))
-                {
-                    _logger.LogWarning("User does not have permission to update task status.");
-                    return new TaskDTO { Message = "User does not have permission to update task status." };
-                }
+                //if (!_http.HttpContext.User.IsInRole(StaticUserRole.Developer))
+                //{
+                //    _logger.LogWarning("User does not have permission to update task status.");
+                //    return new TaskDTO { Message = "User does not have permission to update task status." };
+                //}
                 var task = await _dbContext.Tasks
                     .Include(t => t.TaskStatus) 
                     .Where(t => t.TaskId == taskId)
@@ -492,6 +492,56 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             List<PMIS_Priority> priorities = await this._dbContext.Priorities.ToListAsync();
             List<PriorityDTO> priorityDTOs = Mapper.MapPriorityToPriorityByList(priorities);
             return priorityDTOs;
+        }
+    
+        public async Task<List<TaskDTO>> GetTasksForTeam()
+        {
+            try
+            {
+                if (this._http == null || this._http.HttpContext == null)
+                {
+                    this._logger.LogError("HttpContextAccessor or HttpContext is null.");
+                    return new List<TaskDTO>();
+                }
+
+                if (_http.HttpContext.User == null)
+                {
+                    _logger.LogError("User is null.");
+                    return new List<TaskDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(_http.HttpContext);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    _logger.LogError("User ID not found in HttpContext.");
+                    return new List<TaskDTO>();
+                }
+
+                List<PMIS_Task> tasks = await _dbContext.Tasks
+                    .Include(t => t.Team)
+                    .Where(t => t.Team.ProjectTeams
+                        .Any(pt => pt.Team.UserTeams
+                            .Any(ut => ut.User.Id == userId)
+                        )
+                    )
+                    .ToListAsync();
+
+
+                List<TaskDTO> taskDTOs = Mapper.MapTaskToTaskDTOByList(tasks);
+                return taskDTOs;
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.Message);
+                return new List<TaskDTO>();
+            }
+        }
+
+        public async Task<List<TaskStatusDTO>> GetAllTaskStatusesAsync()
+        {
+            List<PMIS_TaskStatus> taskStatuses = await this._dbContext.TaskStatuses.ToListAsync();
+            List<TaskStatusDTO> taskStatusDTOs = Mapper.MapTaskStatusToTaskStatusDTOByList(taskStatuses);
+            return taskStatusDTOs;
         }
     }
 }

@@ -7,6 +7,7 @@
         public string? TeamDescription { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
+        public List<UserDTO>? Users { get; set; }
         public string? Message { get; set; }
         public TeamDTO() { }
         public TeamDTO(string message) { this.Message = message; }

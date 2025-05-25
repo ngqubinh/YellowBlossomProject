@@ -881,78 +881,6 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
-    "Method": "AssignTeamToTaskAsync",
-    "RelativePath": "api/Task/{projectId}/{taskId}/assign",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "model",
-        "Type": "YellowBlossom.Application.DTOs.Task.AssignTeamToTaskRequest",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
-    "Method": "UpdateTaskStatusAsyn",
-    "RelativePath": "api/Task/{projectId}/{taskId}/update-status",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "model",
-        "Type": "YellowBlossom.Application.DTOs.Task.UpdateTaskStatusRequest",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
     "Method": "CreateTaskAsync",
     "RelativePath": "api/Task/{projectId}/create-task",
     "HttpMethod": "POST",
@@ -1019,6 +947,37 @@
     "ReturnTypes": [
       {
         "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "AssignTeamToTaskAsync",
+    "RelativePath": "api/Task/tasks/{taskId}/assign",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Task.AssignTeamToTaskRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1113,6 +1072,37 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "UpdateTaskStatusAsyn",
+    "RelativePath": "api/Task/tasks/{taskId}/update-status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "YellowBlossom.Application.DTOs.Task.UpdateTaskStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TaskDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
     "Method": "GetAllPrioritiesProcess",
     "RelativePath": "api/Task/tasks/priorities",
     "HttpMethod": "GET",
@@ -1122,6 +1112,46 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.PriorityDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "GetRelatedTasksForTeam",
+    "RelativePath": "api/Task/tasks/related",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TaskDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TaskController",
+    "Method": "GetAllTaskStatusesProcess",
+    "RelativePath": "api/Task/tasks/statuses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TaskStatusDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1257,6 +1287,32 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
+    "Method": "GetTeamDetailsProcess",
+    "RelativePath": "api/Team/teams/{teamId}/details",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TeamDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TeamController",
     "Method": "UpdateUserRolesAsync",
     "RelativePath": "api/Team/teams/update-user-roles",
     "HttpMethod": "POST",
@@ -1380,78 +1436,6 @@
     "ReturnTypes": [
       {
         "Type": "YellowBlossom.Application.DTOs.General.GeneralResponse",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
-    "Method": "CreateTestCaseAsync",
-    "RelativePath": "api/Test/teams/{teamId}/tasks/{taskId}/create-test-case",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "teamId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "YellowBlossom.Application.DTOs.Test.CreateTestCaseRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TestCaseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
-    "Method": "CreateTestRunAsync",
-    "RelativePath": "api/Test/teams/{teamId}/tasks/{taskId}/create-test-run",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "teamId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "taskId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "YellowBlossom.Application.DTOs.Test.CreateTestRunRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "YellowBlossom.Application.DTOs.General.TestRunDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1762,6 +1746,109 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "CreateTestCaseAsync",
+    "RelativePath": "api/Test/tests/{taskId}/create-test-case",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "YellowBlossom.Application.DTOs.Test.CreateTestCaseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TestCaseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllRelatedTestCasesProccess",
+    "RelativePath": "api/Test/tests/{taskId}/test-cases",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TestCaseDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllRelatedTestRunsProccess",
+    "RelativePath": "api/Test/tests/{taskId}/test-runs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TestRunDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetDoneTasksProcess",
+    "RelativePath": "api/Test/tests/doneTasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TaskDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
     "Method": "GetTestSummaryAsync",
     "RelativePath": "api/Test/tests/summary",
     "HttpMethod": "GET",
@@ -1771,6 +1858,117 @@
     "ReturnTypes": [
       {
         "Type": "YellowBlossom.Application.DTOs.Test.TestSummaryDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "CreateTestRunAsync",
+    "RelativePath": "api/Test/tests/tasks/{taskId}/create-test-run",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "YellowBlossom.Application.DTOs.Test.CreateTestRunRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "YellowBlossom.Application.DTOs.General.TestRunDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllTestCaseStatusesProcess",
+    "RelativePath": "api/Test/tests/test-case-statuses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TestCaseStatusDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllTestRunStatusesProcess",
+    "RelativePath": "api/Test/tests/test-run-statuses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TestRunStatusDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllTestTypesProcess",
+    "RelativePath": "api/Test/tests/test-types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TestTypeDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.TestController",
+    "Method": "GetAllTasksForUpdateResultProcess",
+    "RelativePath": "api/Test/tests/testruns-testcases",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[YellowBlossom.Application.DTOs.General.TaskTestDTO, YellowBlossom.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

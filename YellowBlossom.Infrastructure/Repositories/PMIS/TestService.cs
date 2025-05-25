@@ -25,7 +25,99 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             this._logger = logger;
         }
 
-        public async Task<TestCaseDTO> CreateTestCaseAsync(Guid teamId, Guid taskId, CreateTestCaseRequest request)
+        // public async Task<TestCaseDTO> CreateTestCaseAsync(Guid teamId, Guid taskId, CreateTestCaseRequest request)
+        // {
+        //     try
+        //     {
+        //         if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+        //         {
+        //             Console.WriteLine("HttpContext or User is null.");
+        //             return new TestCaseDTO { Message = "HttpContext or User is null." };
+        //         }
+
+        //         string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+        //         if (string.IsNullOrEmpty(userId))
+        //         {
+        //             Console.WriteLine("User ID not found in HttpContext.");
+        //             return new TestCaseDTO { Message = "User ID not found in HttpContext." };
+        //         }
+
+        //         // Kiểm tra user có thuộc team không
+        //         bool isUserInTeam = await _dbContext.UserTeams
+        //             .AnyAsync(ut => ut.TeamId == teamId && ut.UserId == userId);
+
+        //         if (!isUserInTeam)
+        //         {
+        //             Console.WriteLine($"User {userId} is not part of Team {teamId}");
+        //             return new TestCaseDTO { Message = $"User does not belong to Team {teamId}." };
+        //         }
+
+        //         List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+        //         if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+        //         {
+        //             Console.WriteLine("User does not have permission to create test case.");
+        //             return new TestCaseDTO { Message = "User does not have permission to create test case." };
+        //         }
+
+        //         var teamExists = await this._dbContext.Teams.AnyAsync(t => t.TeamId == teamId);
+        //         if (!teamExists)
+        //         {
+        //             Console.WriteLine($"Team with ID {request.CreatedBy} does not exist.");
+        //             return new TestCaseDTO { Message = $"Team with ID {request.CreatedBy} does not exist." };
+        //         }
+
+        //         var task = await this._dbContext.Tasks
+        //             .Where(t => t.TaskId == taskId)
+        //             .SingleOrDefaultAsync();
+
+        //         Guid defaultTestTypeId = this._dbContext.TestTypes
+        //             .Where(tt => tt.TestTypeName == StaticTestType.Unit)
+        //             .Select(tt => tt.TestTypeId)
+        //             .FirstOrDefault();
+        //         if(defaultTestTypeId == Guid.Empty)
+        //         {
+        //             Console.WriteLine($"This type {StaticTestType.Unit} does not exist.");
+        //             return new TestCaseDTO { Message = $"This type {StaticTestType.Unit} does not exist." };
+        //         }
+
+        //         Guid defaultTestCaseStatusId = this._dbContext.TestCaseStatuses
+        //             .Where(tcs => tcs.TestCaseStatusName == StaticTestCaseStatus.Draft)
+        //             .Select(tcs => tcs.TestCaseStatusId)
+        //             .FirstOrDefault();
+        //         if (defaultTestCaseStatusId == Guid.Empty)
+        //         {
+        //             Console.WriteLine($"This status {StaticTestCaseStatus.Draft} does not exist.");
+        //             return new TestCaseDTO { Message = $"This status {StaticTestCaseStatus.Draft} does not exist." };
+        //         }
+
+        //         this._logger.LogInformation("Saving test case...");
+        //         PMIS_TestCase newTestCase = new PMIS_TestCase
+        //         {
+        //             Title = request.Title,
+        //             Description = request.Description,
+        //             Steps = request.Steps,
+        //             ExpectedResult = request.ExpetedResult,
+        //             ActualResult = request.ActualResult,
+        //             TaskId = taskId,
+        //             TestTypeId = defaultTestTypeId,
+        //             TestCaseStatusId = defaultTestCaseStatusId,
+        //             CreateBy = teamId
+        //         };
+        //         this._dbContext.TestCases.Add(newTestCase);
+        //         await this._dbContext.SaveChangesAsync();
+
+        //         this._logger.LogInformation("Created test case successfully.");
+        //         TestCaseDTO testCaseDTO = Mapper.MapTestCaseToTestCaseDTO(newTestCase);
+        //         return testCaseDTO;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         this._logger.LogError(ex.Message);
+        //         throw;
+        //     }
+        // }
+
+        public async Task<TestCaseDTO> CreateTestCaseAsync(Guid taskId, CreateTestCaseRequest request)
         {
             try
             {
@@ -42,7 +134,28 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new TestCaseDTO { Message = "User ID not found in HttpContext." };
                 }
 
-                // Kiểm tra user có thuộc team không
+                // Query the task to get its TeamId
+                var task = await this._dbContext.Tasks
+                    .Include(t => t.Team)
+                    .Where(t => t.TaskId == taskId)
+                    .SingleOrDefaultAsync();
+
+                if (task == null)
+                {
+                    Console.WriteLine($"Task with ID {taskId} does not exist.");
+                    return new TestCaseDTO { Message = $"Task with ID {taskId} does not exist." };
+                }
+
+                if (task?.Team == null)
+                {
+                    Console.WriteLine($"Task with ID {taskId} does not have an associated Team.");
+                    return new TestCaseDTO { Message = $"Task with ID {taskId} does not have an associated Team." };
+                }
+
+                Guid teamId = task.Team.TeamId;
+
+
+                // Check if user belongs to the task's team
                 bool isUserInTeam = await _dbContext.UserTeams
                     .AnyAsync(ut => ut.TeamId == teamId && ut.UserId == userId);
 
@@ -62,19 +175,15 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 var teamExists = await this._dbContext.Teams.AnyAsync(t => t.TeamId == teamId);
                 if (!teamExists)
                 {
-                    Console.WriteLine($"Team with ID {request.CreatedBy} does not exist.");
-                    return new TestCaseDTO { Message = $"Team with ID {request.CreatedBy} does not exist." };
+                    Console.WriteLine($"Team with ID {teamId} does not exist.");
+                    return new TestCaseDTO { Message = $"Team with ID {teamId} does not exist." };
                 }
-
-                var task = await this._dbContext.Tasks
-                    .Where(t => t.TaskId == taskId)
-                    .SingleOrDefaultAsync();
 
                 Guid defaultTestTypeId = this._dbContext.TestTypes
                     .Where(tt => tt.TestTypeName == StaticTestType.Unit)
                     .Select(tt => tt.TestTypeId)
                     .FirstOrDefault();
-                if(defaultTestTypeId == Guid.Empty)
+                if (defaultTestTypeId == Guid.Empty)
                 {
                     Console.WriteLine($"This type {StaticTestType.Unit} does not exist.");
                     return new TestCaseDTO { Message = $"This type {StaticTestType.Unit} does not exist." };
@@ -96,12 +205,12 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     Title = request.Title,
                     Description = request.Description,
                     Steps = request.Steps,
-                    ExpectedResult = request.ExpetedResult,
+                    ExpectedResult = request.ExpetedResult, // Note: Fix typo in property name if needed
                     ActualResult = request.ActualResult,
                     TaskId = taskId,
                     TestTypeId = defaultTestTypeId,
                     TestCaseStatusId = defaultTestCaseStatusId,
-                    CreateBy = teamId
+                    CreateBy = teamId // Using teamId from task
                 };
                 this._dbContext.TestCases.Add(newTestCase);
                 await this._dbContext.SaveChangesAsync();
@@ -252,58 +361,148 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             }
         }
 
-        public async Task<TestRunDTO> CreateTestRunsAsync(Guid teamId, Guid taskId, CreateTestRunRequest request)
+        //public async Task<TestRunDTO> CreateTestRunsAsync(Guid teamId, Guid taskId, CreateTestRunRequest request)
+        //{
+        //    try
+        //    {
+        //        if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+        //        {
+        //            Console.WriteLine("HttpContext or User is null.");
+        //            return new TestRunDTO { Message = "HttpContext or User is null." };
+        //        }
+
+        //        string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+        //        if (string.IsNullOrEmpty(userId))
+        //        {
+        //            Console.WriteLine("User ID not found in HttpContext.");
+        //            return new TestRunDTO { Message = "User ID not found in HttpContext." };
+        //        }
+
+        //        // Kiểm tra user có thuộc team không
+        //        bool isUserInTeam = await _dbContext.UserTeams
+        //            .AnyAsync(ut => ut.TeamId == teamId && ut.UserId == userId);
+
+        //        if (!isUserInTeam)
+        //        {
+        //            Console.WriteLine($"User {userId} is not part of Team {teamId}");
+        //            return new TestRunDTO { Message = $"User does not belong to Team {teamId}." };
+        //        }
+
+        //        List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+        //        if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+        //        {
+        //            Console.WriteLine("User does not have permission to create test run.");
+        //            return new TestRunDTO { Message = "User does not have permission to create test run." };
+        //        }
+
+        //        var task = await this._dbContext.Tasks
+        //            .SingleOrDefaultAsync(t => t.TaskId == taskId);
+        //        if (task == null)
+        //        {
+        //            Console.WriteLine($"Task with ID {taskId} not found.");
+        //            return new TestRunDTO { Message = $"Task with ID {taskId} does not exist." };
+        //        }
+
+        //        Guid defaultTestRunStatusId = await this._dbContext.TestRunStatuses
+        //            .Where(trs => trs.TestRunStatusName == StaticTestRunStatus.Pending)
+        //            .Select(trs => trs.TestRunStatusId)
+        //            .FirstOrDefaultAsync();
+        //        if(defaultTestRunStatusId == Guid.Empty)
+        //        {
+        //            Console.WriteLine("Default test run status not found.");
+        //            return new TestRunDTO { Message = "Default test run status not found." };
+        //        }
+
+        //        PMIS_TestRun newTestRun = new PMIS_TestRun
+        //        {
+        //            Title = request.Title,
+        //            Description = request.Description,
+        //            RunDate = request.RunDate,
+        //            TaskId = taskId,
+        //            CreatedBy = teamId,
+        //            ExecutedBy = request.ExecutedBy.HasValue ? request.ExecutedBy.Value : teamId,
+        //            TestRunStatusId = defaultTestRunStatusId,
+        //        };
+        //        this._dbContext.TestRuns.Add(newTestRun);
+        //        await this._dbContext.SaveChangesAsync();
+
+        //        Console.WriteLine("Test run created successfully!");
+        //        TestRunDTO testRunDTO = Mapper.MapTestRunToTestRunDTO(newTestRun);
+        //        return testRunDTO;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error creating test run: {ex.Message}");
+        //        return new TestRunDTO { Message = "Internal server error." };
+        //    }
+        //}
+
+        public async Task<TestRunDTO> CreateTestRunsAsync(Guid taskId, CreateTestRunRequest request)
         {
             try
             {
+                // Validate HttpContext and User
                 if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
                 {
-                    Console.WriteLine("HttpContext or User is null.");
+                    this._logger.LogWarning("HttpContext or User is null.");
                     return new TestRunDTO { Message = "HttpContext or User is null." };
                 }
 
                 string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
                 if (string.IsNullOrEmpty(userId))
                 {
-                    Console.WriteLine("User ID not found in HttpContext.");
+                    this._logger.LogWarning("User ID not found in HttpContext.");
                     return new TestRunDTO { Message = "User ID not found in HttpContext." };
                 }
 
-                // Kiểm tra user có thuộc team không
+                // Query the task to get its TeamId
+                var task = await this._dbContext.Tasks
+                    .Include(t => t.Team)
+                    .SingleOrDefaultAsync(t => t.TaskId == taskId);
+                if (task == null)
+                {
+                    this._logger.LogWarning($"Task with ID {taskId} not found.");
+                    return new TestRunDTO { Message = $"Task with ID {taskId} does not exist." };
+                }
+
+                if (task.Team == null)
+                {
+                    this._logger.LogWarning($"Task with ID {taskId} does not have an associated Team.");
+                    return new TestRunDTO { Message = $"Task with ID {taskId} does not have an associated Team." };
+                }
+
+                Guid teamId = task.Team.TeamId;
+
+                // Check if user belongs to the task's team
                 bool isUserInTeam = await _dbContext.UserTeams
                     .AnyAsync(ut => ut.TeamId == teamId && ut.UserId == userId);
 
                 if (!isUserInTeam)
                 {
-                    Console.WriteLine($"User {userId} is not part of Team {teamId}");
+                    this._logger.LogWarning($"User {userId} is not part of Team {teamId}.");
                     return new TestRunDTO { Message = $"User does not belong to Team {teamId}." };
                 }
 
-                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
-                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
-                {
-                    Console.WriteLine("User does not have permission to create test run.");
-                    return new TestRunDTO { Message = "User does not have permission to create test run." };
-                }
+                // Check user permissions
+                //List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                //if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                //{
+                //    this._logger.LogWarning("User does not have permission to create test run.");
+                //    return new TestRunDTO { Message = "User does not have permission to create test run." };
+                //}
 
-                var task = await this._dbContext.Tasks
-                    .SingleOrDefaultAsync(t => t.TaskId == taskId);
-                if (task == null)
-                {
-                    Console.WriteLine($"Task with ID {taskId} not found.");
-                    return new TestRunDTO { Message = $"Task with ID {taskId} does not exist." };
-                }
-
+                // Get default TestRunStatusId
                 Guid defaultTestRunStatusId = await this._dbContext.TestRunStatuses
                     .Where(trs => trs.TestRunStatusName == StaticTestRunStatus.Pending)
                     .Select(trs => trs.TestRunStatusId)
                     .FirstOrDefaultAsync();
-                if(defaultTestRunStatusId == Guid.Empty)
+                if (defaultTestRunStatusId == Guid.Empty)
                 {
-                    Console.WriteLine("Default test run status not found.");
+                    this._logger.LogWarning("Default test run status not found.");
                     return new TestRunDTO { Message = "Default test run status not found." };
                 }
 
+                this._logger.LogInformation("Saving test run...");
                 PMIS_TestRun newTestRun = new PMIS_TestRun
                 {
                     Title = request.Title,
@@ -311,19 +510,19 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     RunDate = request.RunDate,
                     TaskId = taskId,
                     CreatedBy = teamId,
-                    ExecutedBy = request.ExecutedBy.HasValue ? request.ExecutedBy.Value : teamId,
+                    ExecutedBy = request.ExecutedBy.HasValue ? request.ExecutedBy.Value : teamId, 
                     TestRunStatusId = defaultTestRunStatusId,
                 };
                 this._dbContext.TestRuns.Add(newTestRun);
                 await this._dbContext.SaveChangesAsync();
 
-                Console.WriteLine("Test run created successfully!");
+                this._logger.LogInformation("Test run created successfully!");
                 TestRunDTO testRunDTO = Mapper.MapTestRunToTestRunDTO(newTestRun);
                 return testRunDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error creating test run: {ex.Message}");
+                this._logger.LogError($"Error creating test run: {ex.Message}");
                 return new TestRunDTO { Message = "Internal server error." };
             }
         }
@@ -528,12 +727,12 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new TestCaseDTO { Message = "User ID not found in HttpContext." };
                 }
 
-                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
-                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
-                {
-                    Console.WriteLine("User does not have permission to edit this test case.");
-                    return new TestCaseDTO { Message = "User does not have permission to edit this test case." };
-                }
+                //List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                //if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                //{
+                //    Console.WriteLine("User does not have permission to edit this test case.");
+                //    return new TestCaseDTO { Message = "User does not have permission to edit this test case." };
+                //}
 
                 PMIS_TestCase? currentTestCase = await this._dbContext.TestCases
                     .Where(tc => tc.TestCaseId == testCasesId)
@@ -607,12 +806,12 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 }
 
                 // Kiểm tra quyền hạn của user
-                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
-                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
-                {
-                    Console.WriteLine("User does not have permission to delete this test case.");
-                    return new GeneralResponse(false, "User does not have permission to delete this test case.");
-                }
+                //List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                //if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                //{
+                //    Console.WriteLine("User does not have permission to delete this test case.");
+                //    return new GeneralResponse(false, "User does not have permission to delete this test case.");
+                //}
 
                 PMIS_TestCase? testCase = await this._dbContext.TestCases
                     .Where(tc => tc.TestCaseId == testCasesId)
@@ -698,12 +897,12 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new TestRunDTO { Message = "User ID not found in HttpContext." };
                 }
 
-                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
-                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
-                {
-                    Console.WriteLine("User does not have permission to edit this test run.");
-                    return new TestRunDTO { Message = "User does not have permission to edit this test run." };
-                }
+                //List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                //if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                //{
+                //    Console.WriteLine("User does not have permission to edit this test run.");
+                //    return new TestRunDTO { Message = "User does not have permission to edit this test run." };
+                //}
 
                 PMIS_TestRun? testRun = await this._dbContext.TestRuns
                     .Where(tr => tr.TestRunId == testRunId)
@@ -761,12 +960,12 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 }
 
                 // Kiểm tra quyền hạn của user
-                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
-                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
-                {
-                    Console.WriteLine("User does not have permission to delete this test run.");
-                    return new GeneralResponse(false, "User does not have permission to delete this test run.");
-                }
+                //List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                //if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                //{
+                //    Console.WriteLine("User does not have permission to delete this test run.");
+                //    return new GeneralResponse(false, "User does not have permission to delete this test run.");
+                //}
 
                 PMIS_TestRun? testRun = await this._dbContext.TestRuns
                     .Where(tr => tr.TestRunId == testRunId)
@@ -886,6 +1085,167 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             {
                 Console.WriteLine($"Error fetching test run history: {ex.Message}");
                 return new List<TestRunHistoryDTO>();
+            }
+        }
+
+        public async Task<List<TaskDTO>> GetDoneTasksAsync()
+        {
+            try
+            {
+                if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+                {
+                    Console.WriteLine("HttpContext or User is null.");
+                    return new List<TaskDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    Console.WriteLine("User ID not found in HttpContext.");
+                    return new List<TaskDTO>();
+                }
+
+                List<PMIS_Task> doneTasks = await this._dbContext.Tasks
+                    .Where(t => t.TaskStatus.TaskStatusName == StaticTaskStatus.Done &&
+                                t.Team.UserTeams.Any(u => u.UserId == userId))
+                    .ToListAsync();
+
+                List<TaskDTO> taskDTOs = Mapper.MapTaskToTaskDTOByList(doneTasks);
+                return taskDTOs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<List<TestCaseDTO>> GetAllRelatedTestCasesAsync(Guid taskId)
+        {
+            try
+            {
+                if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+                {
+                    Console.WriteLine("HttpContext or User is null.");
+                    return new List<TestCaseDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    Console.WriteLine("User ID not found in HttpContext.");
+                    return new List<TestCaseDTO>();
+                }
+
+                List<PMIS_TestCase> testCases = await this._dbContext.TestCases
+                    .Where(tc => tc.TaskId == taskId)
+                    .Include(tc => tc.TestCaseStatus)
+                    .Include(tc => tc.TestType)
+                    .ToListAsync();
+
+                List<TestCaseDTO> testCaseDTOs = Mapper.MapTestCaseToTestCaseDTOByList(testCases);
+                return testCaseDTOs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<List<TestRunDTO>> GetAllRelatedTestRunsAsync(Guid taskId)
+        {
+            try
+            {
+                if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+                {
+                    Console.WriteLine("HttpContext or User is null.");
+                    return new List<TestRunDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    Console.WriteLine("User ID not found in HttpContext.");
+                    return new List<TestRunDTO>();
+                }
+
+                List<PMIS_TestRun> testRuns = await this._dbContext.TestRuns
+                    .Where(tc => tc.TaskId == taskId)
+                    .Include(tc => tc.TestRunStatus)
+                    .Include(tc => tc.CreatedByTeam)
+                    .ToListAsync();
+
+                List<TestRunDTO> testRunDTOs = Mapper.MapTestRunToTestRunDTOByList(testRuns);
+                return testRunDTOs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<List<TestRunStatusDTO>> GetAllTestRunStatusesAsync()
+        {
+            List<PMIS_TestRunStatus> testRunStatuses = await this._dbContext.TestRunStatuses.ToListAsync();
+            List<TestRunStatusDTO> testRunStatusDTOs = Mapper.MapTestRunStatusToTestRunStatusDTOByList(testRunStatuses);
+            return testRunStatusDTOs;
+        }
+
+        public async Task<List<TestCaseStatusDTO>> GettAllTestCaseStatusesAsync()
+        {
+            List<PMIS_TestCaseStatus> testRunStatuses = await this._dbContext.TestCaseStatuses.ToListAsync();
+            List<TestCaseStatusDTO> testRunStatusDTOs = Mapper.MapTestCaseStatusToTestCaseStatusDTOByList(testRunStatuses);
+            return testRunStatusDTOs;
+        }
+
+        public async Task<List<TestTypeDTO>> GetAllTestTypesAsync()
+        {
+            List<PMIS_TestType> testTypes = await this._dbContext.TestTypes.ToListAsync();
+            List<TestTypeDTO> testTypeDTOs = Mapper.MapTestTypeToTestTypeDTOByList(testTypes);
+            return testTypeDTOs;
+        }
+
+        public async Task<List<TaskTestDTO>> GetAllTasksForUpdateResultAsync()
+        {
+            try
+            {
+                if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+                {
+                    Console.WriteLine("HttpContext or User is null.");
+                    return new List<TaskTestDTO>();
+                }
+
+                string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    Console.WriteLine("User ID not found in HttpContext.");
+                    return new List<TaskTestDTO>();
+                }
+
+                List<string> allowedRoles = new List<string> { StaticUserRole.Tester };
+                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                {
+                    Console.WriteLine("User does not have permission to get the page.");
+                    return new List<TaskTestDTO>();
+                }
+
+
+                var tasksWithTestCasesAndTestRuns = await _dbContext.Tasks
+                    .Where(task => task.TestCases.Any() && task.TestRuns.Any())
+                    .Include(task => task.TestRuns).ThenInclude(testRun => testRun.TestRunTestCases).ThenInclude(t => t.TestCaseStatus)
+                    .Include(task => task.TestCases)
+                    .ToListAsync();
+
+                List<TaskTestDTO> taskDTOs = Mapper.MapTaskToTaskTestDTOByList(tasksWithTestCasesAndTestRuns);
+                return taskDTOs;
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 

@@ -39,7 +39,7 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
-        [HttpPost("{projectId}/{taskId}/assign")]
+        [HttpPost("tasks/{taskId}/assign")]
         public async Task<ActionResult<TaskDTO>> AssignTeamToTaskAsync(Guid taskId, AssignTeamToTaskRequest model)
         {
             if(taskId == Guid.Empty)
@@ -62,7 +62,7 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);   
         }
         
-        [HttpPost("{projectId}/{taskId}/update-status")]
+        [HttpPost("tasks/{taskId}/update-status")]
         public async Task<ActionResult<TaskDTO>> UpdateTaskStatusAsyn(Guid taskId, UpdateTaskStatusRequest model)
         {
             TaskDTO res = await this._task.UpdateTaskStatusAsync(taskId, model);
@@ -106,10 +106,24 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
-        [HttpGet] [Route("tasks/priorities")]
+        [HttpGet][Route("tasks/priorities")]
         public async Task<ActionResult<List<PriorityDTO>>> GetAllPrioritiesProcess()
         {
             List<PriorityDTO> res = await this._task.GetPriorityListAsync();
+            return Ok(res);
+        }
+        
+        [HttpGet][Route("tasks/related")]
+        public async Task<ActionResult<List<TaskDTO>>> GetRelatedTasksForTeam()
+        {
+            List<TaskDTO> res = await this._task.GetTasksForTeam();
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tasks/statuses")]
+        public async Task<ActionResult<List<TaskStatusDTO>>> GetAllTaskStatusesProcess()
+        {
+            List<TaskStatusDTO> res = await this._task.GetAllTaskStatusesAsync();
             return Ok(res);
         }
     }

@@ -159,6 +159,8 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 List<PMIS_Project> projects = await this._dbContext.Projects
                     .Where(p => p.ProductId == productId)
                     .Include(p => p.ProjectStatus)
+                    .Include(p => p.ProjectTeams).ThenInclude(pt => pt.Team)
+                    .Include(p => p.ProjectTeams).ThenInclude(pt => pt.User)
                     .ToListAsync();
 
                 if (!projects.Any())
@@ -617,6 +619,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                 List<PMIS_Project> projects = await this._dbContext.Projects
                     .Where(p => p.ProductManager == userId)
                     .Include(p => p.ProjectStatus)
+                    .Include(p => p.ProjectTeams).ThenInclude(pt => pt.Team)
                     .ToListAsync();
 
                 List<ProjectDTO> projectDTOs = Mapper.MapProjectToProjectDTOByList(projects);

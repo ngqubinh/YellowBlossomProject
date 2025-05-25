@@ -12,8 +12,7 @@ namespace YellowBlossom.Application.Interfaces.PMIS
         Task<GeneralResponse> UpdateUserLockStatusAsync(UpdateUserLockRequest request);
         Task<UserDTO> GetUserDetailsAsync(string userId);
         Task<List<UserDTO>> GetAllUsersAsync();
-
-
+        Task<TeamDTO> GetTeamDetailsAsync(Guid teamId);
         Task<GeneralResponse> GenerateTeamInvitationAsync(string email, Guid teamId, int expiryDays);
         Task<GeneralResponse> AcceptTeamInvitationAsync(string token);
 

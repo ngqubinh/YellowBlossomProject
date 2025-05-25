@@ -1605,7 +1605,7 @@
         }
       }
     },
-    "/api/Task/{projectId}/{taskId}/assign": {
+    "/api/Task/tasks/{taskId}/assign": {
       "post": {
         "tags": [
           "Task"
@@ -1618,14 +1618,6 @@
             "schema": {
               "type": "string",
               "format": "uuid"
-            }
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -1712,7 +1704,7 @@
         }
       }
     },
-    "/api/Task/{projectId}/{taskId}/update-status": {
+    "/api/Task/tasks/{taskId}/update-status": {
       "post": {
         "tags": [
           "Task"
@@ -1725,14 +1717,6 @@
             "schema": {
               "type": "string",
               "format": "uuid"
-            }
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -1937,6 +1921,82 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/PriorityDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Task/tasks/related": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Task/tasks/statuses": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskStatusDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskStatusDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskStatusDTO"
                   }
                 }
               }
@@ -2410,10 +2470,10 @@
         }
       }
     },
-    "/api/Test/teams/{teamId}/tasks/{taskId}/create-test-case": {
-      "post": {
+    "/api/Team/teams/{teamId}/details": {
+      "get": {
         "tags": [
-          "Test"
+          "Team"
         ],
         "parameters": [
           {
@@ -2424,7 +2484,38 @@
               "type": "string",
               "format": "uuid"
             }
-          },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/{taskId}/create-test-case": {
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "parameters": [
           {
             "name": "taskId",
             "in": "path",
@@ -2741,21 +2832,12 @@
         }
       }
     },
-    "/api/Test/teams/{teamId}/tasks/{taskId}/create-test-run": {
+    "/api/Test/tests/tasks/{taskId}/create-test-run": {
       "post": {
         "tags": [
           "Test"
         ],
         "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "taskId",
             "in": "path",
@@ -3095,6 +3177,294 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/TestRunHistoryDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/doneTasks": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/{taskId}/test-cases": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/{taskId}/test-runs": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/test-run-statuses": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunStatusDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunStatusDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunStatusDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/test-case-statuses": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseStatusDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseStatusDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestCaseStatusDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/test-types": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestTypeDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestTypeDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestTypeDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Test/tests/testruns-testcases": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskTestDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskTestDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskTestDTO"
                   }
                 }
               }
@@ -4752,6 +5122,13 @@
             "type": "string",
             "nullable": true
           },
+          "projectTeam": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectTeamDTO"
+            },
+            "nullable": true
+          },
           "message": {
             "type": "string",
             "nullable": true
@@ -4971,6 +5348,93 @@
         },
         "additionalProperties": false
       },
+      "TaskTestDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priorityId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tastStatusId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "projectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "assignedTo": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PriorityDTO"
+          },
+          "taskStatus": {
+            "$ref": "#/components/schemas/TaskStatusDTO"
+          },
+          "project": {
+            "$ref": "#/components/schemas/ProjectDTO"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDTO"
+          },
+          "team": {
+            "$ref": "#/components/schemas/TeamDTO"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "testCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCaseDTO"
+            },
+            "nullable": true
+          },
+          "testRunDTO": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestRunDTO"
+            },
+            "nullable": true
+          },
+          "testRunTestCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestRunTestCaseDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TeamDTO": {
         "type": "object",
         "properties": {
@@ -4992,6 +5456,13 @@
           },
           "createdBy": {
             "type": "string",
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserDTO"
+            },
             "nullable": true
           },
           "message": {
@@ -5288,14 +5759,11 @@
         "additionalProperties": false
       },
       "UpdateTestRunTestCaseRequest": {
-        "required": [
-          "actualResult"
-        ],
         "type": "object",
         "properties": {
           "actualResult": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "testCaseStatusId": {
             "type": "string",

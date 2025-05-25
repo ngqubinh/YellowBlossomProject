@@ -133,7 +133,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new List<TeamDTO>();
                 }
 
-                if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
+                if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ProjectManager))
                 {
                     this._logger.LogWarning("User does not have permission to create team.");
                     return new List<TeamDTO>();
@@ -356,7 +356,7 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             // Kiểm tra quyền hạn của người thực hiện (Chỉ `Admin` mới có quyền)
             if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ADMIN))
             {
-                Console.WriteLine("User does not have permission to manage lock status.");
+                Console.WriteLine("User does not have permission to get all users.");
                 return new List<UserDTO>();
             }
 
@@ -375,6 +375,55 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             return userDTOs;
         }
 
+        public async Task<TeamDTO> GetTeamDetailsAsync(Guid teamId)
+        {
+            try
+            {
+                if (GeneralService.IsHttpContextOrUserNull(this._http.HttpContext!))
+                {
+                    Console.WriteLine("HttpContext or User is null.");
+                    return new TeamDTO();
+                }
+
+                //if (!this._http.HttpContext!.User.IsInRole(StaticUserRole.ProjectManager))
+                //{
+                //    Console.WriteLine("User does not have permission to get team details.");
+                //    return new TeamDTO();
+                //}
+
+                string? executorUserId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
+                if (string.IsNullOrEmpty(executorUserId))
+                {
+                    Console.WriteLine("Executor User ID not found in HttpContext.");
+                    return new TeamDTO();
+                }
+
+                if (teamId == Guid.Empty)
+                {
+                    Console.WriteLine("Team ID not found.");
+                    return new TeamDTO();
+                }
+
+                PMIS_Team? team = await this._dbContext.Teams
+                    .Where(t => t.TeamId == teamId)
+                    .Include(t => t.UserTeams).ThenInclude(ut => ut.User)
+                    .FirstOrDefaultAsync();
+                if (team == null)
+                {
+                    Console.WriteLine("There is no team.");
+                    return new TeamDTO();
+                }
+
+
+                TeamDTO teamDTO = Mapper.MapTeamToTeamDTO(team);
+                return teamDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
 
         public async Task<GeneralResponse> GenerateTeamInvitationAsync(string email, Guid teamId, int expiryDays)
         {

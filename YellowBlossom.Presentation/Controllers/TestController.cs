@@ -16,10 +16,10 @@ namespace YellowBlossom.Presentation.Controllers
             this._test = test;
         }
 
-        [HttpPost("teams/{teamId}/tasks/{taskId}/create-test-case")]
-        public async Task<ActionResult<TestCaseDTO>> CreateTestCaseAsync(Guid teamId, Guid taskId, [FromBody] CreateTestCaseRequest request)
+        [HttpPost("tests/{taskId}/create-test-case")]
+        public async Task<ActionResult<TestCaseDTO>> CreateTestCaseAsync(Guid taskId, [FromBody] CreateTestCaseRequest request)
         {
-            TestCaseDTO res = await this._test.CreateTestCaseAsync(teamId, taskId, request);
+            TestCaseDTO res = await this._test.CreateTestCaseAsync(taskId, request);
             if (!ModelState.IsValid)
             {
                 return BadRequest(res);
@@ -85,10 +85,10 @@ namespace YellowBlossom.Presentation.Controllers
             return Ok(res);
         }
 
-        [HttpPost("teams/{teamId}/tasks/{taskId}/create-test-run")]
-        public async Task<ActionResult<TestRunDTO>> CreateTestRunAsync(Guid teamId, Guid taskId, [FromBody]CreateTestRunRequest request)
+        [HttpPost("tests/tasks/{taskId}/create-test-run")]
+        public async Task<ActionResult<TestRunDTO>> CreateTestRunAsync( Guid taskId, [FromBody]CreateTestRunRequest request)
         {
-            TestRunDTO res = await this._test.CreateTestRunsAsync(teamId, taskId, request);
+            TestRunDTO res = await this._test.CreateTestRunsAsync(taskId, request);
             if (!ModelState.IsValid)
             {
                 return BadRequest(res);
@@ -129,7 +129,7 @@ namespace YellowBlossom.Presentation.Controllers
             {
                 return NotFound("Test Run Id not found.");
             }
-            GeneralResponse res = await this._test.DeleteTestCaseAsync(testRunId);
+            GeneralResponse res = await this._test.DeleteTestRunAsync(testRunId);
             if (res.Success == false)
             {
                 return BadRequest(res);
@@ -138,7 +138,7 @@ namespace YellowBlossom.Presentation.Controllers
         }
 
         [HttpPost("test-runs/{testRunId}/test-cases/{testCaseId}/results")]
-        public async Task<ActionResult<TestRunTestCaseDTO>> UpdateTestRunTestCaseAsyn(Guid testRunId, Guid testCaseId, [FromBody] UpdateTestRunTestCaseRequest request)
+        public async Task<ActionResult<TestRunTestCaseDTO>> UpdateTestRunTestCaseAsyn(Guid testRunId, Guid testCaseId, UpdateTestRunTestCaseRequest request)
         {
             if (string.IsNullOrEmpty(request.ActualResult))
             {
@@ -163,6 +163,63 @@ namespace YellowBlossom.Presentation.Controllers
         public async Task<ActionResult<List<TestRunHistoryDTO>>> GetTestRunHistoryAsync(Guid testRunId, Guid testCaseId)
         {
             List<TestRunHistoryDTO> res = await this._test.GetTestRunHistoryAsync(testRunId, testCaseId);
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/doneTasks")]
+        public async Task<ActionResult<List<TaskDTO>>> GetDoneTasksProcess()
+        {
+            List<TaskDTO> res = await this._test.GetDoneTasksAsync();
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/{taskId}/test-cases")]
+        public async Task<ActionResult<List<TestCaseDTO>>> GetAllRelatedTestCasesProccess(Guid taskId)
+        {
+            if (taskId == Guid.Empty)
+            {
+                return NotFound("Task ID not found");
+            }
+            List<TestCaseDTO> res = await this._test.GetAllRelatedTestCasesAsync(taskId);
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/{taskId}/test-runs")]
+        public async Task<ActionResult<List<TestRunDTO>>> GetAllRelatedTestRunsProccess(Guid taskId)
+        {
+            if (taskId == Guid.Empty)
+            {
+                return NotFound("Task ID not found");
+            }
+            List<TestRunDTO> res = await this._test.GetAllRelatedTestRunsAsync(taskId);
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/test-run-statuses")]
+        public async Task <ActionResult<List<TestRunStatusDTO>>> GetAllTestRunStatusesProcess()
+        {
+            List<TestRunStatusDTO> res = await this._test.GetAllTestRunStatusesAsync();
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/test-case-statuses")]
+        public async Task<ActionResult<List<TestCaseStatusDTO>>> GetAllTestCaseStatusesProcess()
+        {
+            List<TestCaseStatusDTO> res = await this._test.GettAllTestCaseStatusesAsync();
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/test-types")]
+        public async Task<ActionResult<List<TestTypeDTO>>> GetAllTestTypesProcess()
+        {
+            List<TestTypeDTO> res = await this._test.GetAllTestTypesAsync();
+            return Ok(res);
+        }
+
+        [HttpGet][Route("tests/testruns-testcases")]
+        public async Task<ActionResult<List<TaskTestDTO>>> GetAllTasksForUpdateResultProcess()
+        {
+            List<TaskTestDTO> res = await this._test.GetAllTasksForUpdateResultAsync();
             return Ok(res);
         }
     }
