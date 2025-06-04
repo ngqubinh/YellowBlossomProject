@@ -1,0 +1,97 @@
+'use client';
+
+import authService from "@/services/authService";
+import { AuthContextType, LoginCredentials, RegisterCredentials, Role, User } from "@/types/auth";
+import { useRouter } from "next/navigation";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+
+const AuthContext = createContext<AuthContextType>({
+    user: null,
+    isAuthenticated: false,
+    isLoading: true,
+    hasRole: () => true,
+    login: async () => {},
+    register: async () => {},
+    logout: () => {}
+});
+
+export const AuthProvider = ({ children }: {children: ReactNode }) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+
+    useEffect(() => {
+        const initAuth = async () => {
+            try {
+                authService.setupInterceptors();
+                if (authService.isAuthenticated()) {
+                    const currentUser = authService.getCurrentUser();
+                    setUser(currentUser);
+                }
+            } catch (error) {
+                console.error('Auth initialization error:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        initAuth();
+    }, []);
+
+    const login = async (credentials: LoginCredentials) => {
+        setIsLoading(true);
+        try {
+            const user = await authService.login(credentials);
+            setUser(user);
+            router.push('/dashboard');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const register = async (credentials: RegisterCredentials) => {
+
+    }
+
+    const logout = () => {
+        authService.logout();
+        setUser(null);
+        router.push('/auth/login');
+    };
+
+    const hasRole = (roleToCheck: Role | Role[]): boolean => {
+        console.log('User:', user);
+        console.log('User Role:', user?.role);
+        console.log('Role to Check:', roleToCheck);
+        if (!user) return false;
+        const userRoles = Array.isArray(user.role) ? user.role : [user.role];
+        if (Array.isArray(roleToCheck)) {
+        return roleToCheck.some(role => userRoles.includes(role));
+    }
+    
+    return userRoles.includes(roleToCheck);
+    };
+
+    const isProtectedRoute = (requiredRoles: Role | Role[]): boolean => {
+        return hasRole(requiredRoles);
+    };
+
+    const value = {
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        register,
+        logout,
+        hasRole,
+        isProtectedRoute
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+export const useAuth = () => useContext(AuthContext);
+export default AuthContext;
