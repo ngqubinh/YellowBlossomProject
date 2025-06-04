@@ -10,5 +10,8 @@ namespace YellowBlossom.Application.Interfaces.PMIS
         Task<ProductDTO> TrackProductAsync(Guid productId);
         Task<List<ProductDTO>> GetProductsAsync();
         Task<GeneralResponse> DeleteProductAsync(Guid productId);
+
+        Task<ProductStatisticsDTO> GetProductStatisticsAsync(Guid productId);
+        Task<List<ProductStatisticsDTO>> GetAllProductsStatisticsAsync();
     }
 }

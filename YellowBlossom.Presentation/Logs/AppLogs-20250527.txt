@@ -1,0 +1,5 @@
+2025-05-27 09:42:13 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-27 09:42:13 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-27 09:42:13 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-27 09:42:13 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-27 09:42:13 [INF] [ProjectService] This message will be logged with ProjectService context

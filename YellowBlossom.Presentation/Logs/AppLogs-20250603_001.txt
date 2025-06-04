@@ -1,0 +1,35 @@
+2025-06-03 11:06:50 [WRN] [] Failed to determine the https port for redirect.
+2025-06-03 11:06:52 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:06:55 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWY3OWY1MC00MjY1LTRhZmYtYTBhZC1mZmY4MzU3NjYwZjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0ODkyMzYxNSwiZXhwIjoxNzUxNTE1NjE1LCJpYXQiOjE3NDg5MjM2MTUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.Em_e7Kudl9-CwUROoj1EML9XjPD7S9wqPp4-tJXL1l8","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:06:57 [WRN] [ProductService] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-03 11:13:13 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:13:13 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODkyMzk5MywiZXhwIjoxNzUxNTE1OTkzLCJpYXQiOjE3NDg5MjM5OTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.cFrXv1KPkv-XlCTpnNY5RVKV40m7illJJqUbmINNTXg","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:15:14 [INF] [TaskService] Retrieving task data from database.
+2025-06-03 11:15:14 [INF] [TaskService] Mapping task to DTO.
+2025-06-03 11:15:14 [INF] [TaskService] Retrieving task data from database.
+2025-06-03 11:15:14 [INF] [TaskService] Mapping task to DTO.
+2025-06-03 11:16:20 [INF] [TaskService] Retriving data...
+2025-06-03 11:16:20 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:16:20 [INF] [TaskService] Retriving data...
+2025-06-03 11:16:20 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:18:13 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:18:13 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWY3OWY1MC00MjY1LTRhZmYtYTBhZC1mZmY4MzU3NjYwZjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0ODkyNDI5MywiZXhwIjoxNzUxNTE2MjkzLCJpYXQiOjE3NDg5MjQyOTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.RfLkravBP-GBRsCKVpN8S5iMBwZIRXMTh9WeBWhUEiY","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:18:23 [WRN] [TeamService] User does not have permission to create team.
+2025-06-03 11:18:23 [WRN] [TeamService] User does not have permission to create team.
+2025-06-03 11:18:47 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:18:47 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODkyNDMyNywiZXhwIjoxNzUxNTE2MzI3LCJpYXQiOjE3NDg5MjQzMjcsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.Uzau4e1YMs2254qOuA6ZG4FtFBu8kT2MagqN4ESyVQI","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:22:18 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:22:18 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiZDUzNzNlYi1iNDE5LTRjNzYtYTQzZi04MjFiZTEzZjIxOGYiLCJlbWFpbCI6ImRldmVsb3BlckBnbWFpbC5jb20iLCJyb2xlIjoiRGV2ZWxvcGVyIiwibmJmIjoxNzQ4OTI0NTM4LCJleHAiOjE3NTE1MTY1MzgsImlhdCI6MTc0ODkyNDUzOCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.cM5OOKxwg_IEaerC1qFLDhLjiqtaqMkEUvK1JDKAQ5I","Message":"","Email":"developer@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:22:28 [INF] [TaskService] Retriving data...
+2025-06-03 11:22:28 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:22:28 [INF] [TaskService] Retriving data...
+2025-06-03 11:22:28 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:23:38 [INF] [TaskService] Retriving data...
+2025-06-03 11:23:38 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:23:38 [INF] [TaskService] Retriving data...
+2025-06-03 11:23:38 [INF] [TaskService] Retrived Task details successfully.
+2025-06-03 11:24:08 [INF] [] User sign-in attempt started. Request: {"Email":"qa@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:24:08 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzNTQ0N2ViOC03ZjAwLTQ2ZDQtYWRiNy1iNzJmZGUyNDUzNDkiLCJlbWFpbCI6InFhQGdtYWlsLmNvbSIsInJvbGUiOiJRQSIsIm5iZiI6MTc0ODkyNDY0OCwiZXhwIjoxNzUxNTE2NjQ4LCJpYXQiOjE3NDg5MjQ2NDgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.mHd63zYho1FDdhertBkkZkMHzeyxoY4b_IZn3kH-NKQ","Message":"","Email":"qa@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:27:35 [INF] [] User sign-in attempt started. Request: {"Email":"tester@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-06-03 11:27:35 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjc1MzMxZi1mNzg0LTRjMGItOGVlOC0xNzI2YWUxNDYxNjUiLCJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJyb2xlIjoiVGVzdGVyIiwibmJmIjoxNzQ4OTI0ODU1LCJleHAiOjE3NTE1MTY4NTUsImlhdCI6MTc0ODkyNDg1NSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.Nwl2MPDjZa_iWXNag9hYpjw8YWvXpsC5GrVL1-jb2hw","Message":"","Email":"tester@gmail.com","Products":[],"$type":"UserResponse"}
+2025-06-03 11:27:41 [WRN] [] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.

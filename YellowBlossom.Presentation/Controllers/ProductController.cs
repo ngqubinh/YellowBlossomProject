@@ -71,5 +71,20 @@ namespace YellowBlossom.Presentation.Controllers
             GeneralResponse res = await this._product.DeleteProductAsync(productId);
             return Ok(res);
         }
+
+        [HttpGet("{id}/statistics")]
+        public async Task<IActionResult> GetProductStatistics(Guid id)
+        {
+            var stats = await _product.GetProductStatisticsAsync(id);
+            return Ok(stats);
+        }
+
+        [HttpGet("statistics")]
+        public async Task<IActionResult> GetAllProductsStatistics()
+        {
+            var stats = await _product.GetAllProductsStatisticsAsync();
+            return Ok(stats);
+        }
+
     }
 }

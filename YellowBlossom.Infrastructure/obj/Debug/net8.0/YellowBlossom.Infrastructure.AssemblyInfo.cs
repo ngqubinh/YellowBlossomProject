@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YellowBlossom.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26fe560733b3c38eb964b2d6f1307e4cb55ed2c9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b80118a341e0776fa77de7712d7d01e99c863706")]
 [assembly: System.Reflection.AssemblyProductAttribute("YellowBlossom.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YellowBlossom.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

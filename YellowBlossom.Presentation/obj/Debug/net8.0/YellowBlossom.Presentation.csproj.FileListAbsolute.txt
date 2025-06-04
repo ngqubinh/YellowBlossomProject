@@ -288,4 +288,3 @@ D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Presentation\obj\Debug\net8.0\Y
 D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Presentation\obj\Debug\net8.0\YellowBlossom.Presentation.genruntimeconfig.cache
 D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Presentation\obj\Debug\net8.0\ref\YellowBlossom.Presentation.dll
 D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Presentation\obj\Debug\net8.0\YellowBlossom.Presentation.sourcelink.json
-D:\YellowBlossom\src\YellowBlossom\YellowBlossom.Presentation\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

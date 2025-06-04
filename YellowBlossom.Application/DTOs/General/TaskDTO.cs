@@ -18,6 +18,8 @@
         public UserDTO? User { get; set; }
         public TeamDTO? Team { get; set; }
         public string? Message { get; set; }
+        public List<TestCaseDTO> TestCases { get; set; } = new List<TestCaseDTO>();
+        public List<TestRunDTO> TestRuns { get; set; } = new List<TestRunDTO>();
     }
 
     public class TaskTestDTO

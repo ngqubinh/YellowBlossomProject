@@ -1,0 +1,36 @@
+2025-05-27 10:21:13 [WRN] [] Failed to determine the https port for redirect.
+2025-05-27 10:32:45 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 10:32:45 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODMxNjc2NSwiZXhwIjoxNzUwOTA4NzY1LCJpYXQiOjE3NDgzMTY3NjUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.rxr0fKfzr6-V88osl77S1L6X9i_47TcM0BKl01GqtK8","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 10:41:12 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:12 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:41:12 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:12 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:41:17 [INF] [TaskService] Retriving data...
+2025-05-27 10:41:17 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:41:17 [INF] [TaskService] Retriving data...
+2025-05-27 10:41:17 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:41:19 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:19 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:41:19 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:19 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:41:51 [INF] [TaskService] Retriving data...
+2025-05-27 10:41:51 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:41:51 [INF] [TaskService] Retriving data...
+2025-05-27 10:41:51 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:41:55 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:55 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:41:55 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:41:56 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:42:50 [INF] [TaskService] Retriving data...
+2025-05-27 10:42:50 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:42:50 [INF] [TaskService] Retriving data...
+2025-05-27 10:42:50 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 10:42:54 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:42:54 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 10:42:55 [INF] [TaskService] Retrieving task data from database.
+2025-05-27 10:42:55 [INF] [TaskService] Mapping task to DTO.
+2025-05-27 13:46:08 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-27 13:46:08 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-27 13:46:08 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-27 13:46:08 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-27 13:46:08 [INF] [ProjectService] This message will be logged with ProjectService context

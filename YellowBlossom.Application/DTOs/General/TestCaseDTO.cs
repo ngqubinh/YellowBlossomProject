@@ -17,5 +17,6 @@
         public TestTypeDTO? TestType { get; set; }
         public TestCaseStatusDTO? TestCaseStatus { get; set; }
         public string? Message { get; set; }
+        public List<BugDTO> Bugs { get; set; } = new List<BugDTO>();
     }
 }

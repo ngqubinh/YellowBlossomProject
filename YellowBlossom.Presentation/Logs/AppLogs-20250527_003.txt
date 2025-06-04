@@ -1,0 +1,73 @@
+2025-05-27 13:46:41 [WRN] [] Failed to determine the https port for redirect.
+2025-05-27 13:46:48 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gamil.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:46:59 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"developer@gamil.com is not found","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-27 13:47:33 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:47:34 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiZDUzNzNlYi1iNDE5LTRjNzYtYTQzZi04MjFiZTEzZjIxOGYiLCJlbWFpbCI6ImRldmVsb3BlckBnbWFpbC5jb20iLCJyb2xlIjoiRGV2ZWxvcGVyIiwibmJmIjoxNzQ4MzI4NDU0LCJleHAiOjE3NTA5MjA0NTQsImlhdCI6MTc0ODMyODQ1NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0._LxmCAfApplE1FJpZjyN8ytL0R8KmGjTSoqlMXrnj-0","Message":"","Email":"developer@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:49:26 [INF] [] User sign-in attempt started. Request: {"Email":"tester@gmail.com","Password":"nguyenquocbin2h14@BB","$type":"SignInRequest"}
+2025-05-27 13:49:26 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"The password is wrong","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-27 13:49:33 [INF] [] User sign-in attempt started. Request: {"Email":"tester@gmail.com","Password":"nguyenquocbin2h14@BB","$type":"SignInRequest"}
+2025-05-27 13:49:33 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"The password is wrong","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-27 13:49:51 [INF] [] User sign-in attempt started. Request: {"Email":"tester@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:49:52 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjc1MzMxZi1mNzg0LTRjMGItOGVlOC0xNzI2YWUxNDYxNjUiLCJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJyb2xlIjoiVGVzdGVyIiwibmJmIjoxNzQ4MzI4NTkyLCJleHAiOjE3NTA5MjA1OTIsImlhdCI6MTc0ODMyODU5MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.le-L9tzoTkJqwpbwl-SklFrhatURmRwZGCO8OoD8RtY","Message":"","Email":"tester@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:49:59 [WRN] [ProjectService] User does not have permission to assign team to project.
+2025-05-27 13:49:59 [WRN] [ProjectService] User does not have permission to assign team to project.
+2025-05-27 13:50:10 [WRN] [ProjectService] User does not have permission to assign team to project.
+2025-05-27 13:50:10 [WRN] [ProjectService] User does not have permission to assign team to project.
+2025-05-27 13:51:03 [INF] [TaskService] Retriving data...
+2025-05-27 13:51:03 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:51:03 [INF] [TaskService] Retriving data...
+2025-05-27 13:51:03 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:51:08 [INF] [TaskService] Updated task status successfully.
+2025-05-27 13:51:08 [INF] [TaskService] Retriving data...
+2025-05-27 13:51:08 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:51:40 [INF] [TaskService] Retriving data...
+2025-05-27 13:51:40 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:51:40 [INF] [TaskService] Retriving data...
+2025-05-27 13:51:40 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:52:01 [INF] [TaskService] Retriving data...
+2025-05-27 13:52:01 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:52:01 [INF] [TaskService] Retriving data...
+2025-05-27 13:52:01 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:52:10 [INF] [TaskService] Retriving data...
+2025-05-27 13:52:10 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:52:10 [INF] [TaskService] Retriving data...
+2025-05-27 13:52:10 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:55:23 [INF] [] User sign-in attempt started. Request: {"Email":"qa@gmail.com","Password":"nguyenquocbin2h14@BB","$type":"SignInRequest"}
+2025-05-27 13:55:23 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"The password is wrong","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-27 13:55:32 [INF] [] User sign-in attempt started. Request: {"Email":"qa@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:55:32 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzNTQ0N2ViOC03ZjAwLTQ2ZDQtYWRiNy1iNzJmZGUyNDUzNDkiLCJlbWFpbCI6InFhQGdtYWlsLmNvbSIsInJvbGUiOiJRQSIsIm5iZiI6MTc0ODMyODkzMiwiZXhwIjoxNzUwOTIwOTMyLCJpYXQiOjE3NDgzMjg5MzIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.lDSvbgBWPF3tQyhYL1mJx0V7aG-o7nVXzqsNXqJDZiA","Message":"","Email":"qa@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:55:42 [INF] [TaskService] Retriving data...
+2025-05-27 13:55:42 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:55:42 [INF] [TaskService] Retriving data...
+2025-05-27 13:55:42 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 13:56:46 [INF] [] User sign-in attempt started. Request: {"Email":"nguyenquocbinh214@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:56:47 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlZDU2OTg1ZS03YTVhLTRjZmUtYTRiZS0yZmEyZDNjNDc2OGIiLCJlbWFpbCI6Im5ndXllbnF1b2NiaW5oMjE0QGdtYWlsLmNvbSIsInJvbGUiOiJVbmtub3duIiwibmJmIjoxNzQ4MzI5MDA3LCJleHAiOjE3NTA5MjEwMDcsImlhdCI6MTc0ODMyOTAwNywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.QTVP6FHu9ivV48mi21q8X0uo4RRFWGAb5ij07a4ONWs","Message":"","Email":"nguyenquocbinh214@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:57:01 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gamil.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:57:01 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"developer@gamil.com is not found","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-27 13:57:06 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:57:06 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiZDUzNzNlYi1iNDE5LTRjNzYtYTQzZi04MjFiZTEzZjIxOGYiLCJlbWFpbCI6ImRldmVsb3BlckBnbWFpbC5jb20iLCJyb2xlIjoiRGV2ZWxvcGVyIiwibmJmIjoxNzQ4MzI5MDI2LCJleHAiOjE3NTA5MjEwMjYsImlhdCI6MTc0ODMyOTAyNiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.xkimTyXYK6vBCtK95I73TQ48g3eknNLdb0PtTrJD1-Y","Message":"","Email":"developer@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:57:26 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:57:26 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWY3OWY1MC00MjY1LTRhZmYtYTBhZC1mZmY4MzU3NjYwZjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0ODMyOTA0NiwiZXhwIjoxNzUwOTIxMDQ2LCJpYXQiOjE3NDgzMjkwNDYsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.c9HsAQrTf9Ls2jmyhSDSIrSi5Wjdd1kANvTJN7857Ho","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 13:57:29 [WRN] [ProductService] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-27 13:57:32 [WRN] [TeamService] User does not have permission to create team.
+2025-05-27 13:57:32 [WRN] [TeamService] User does not have permission to create team.
+2025-05-27 13:57:43 [WRN] [TeamService] User does not have permission to create team.
+2025-05-27 13:57:43 [WRN] [TeamService] User does not have permission to create team.
+2025-05-27 13:58:11 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 13:58:12 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODMyOTA5MiwiZXhwIjoxNzUwOTIxMDkyLCJpYXQiOjE3NDgzMjkwOTIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.erh8Njp8jOnPGjFesbS4PIqc3jgLt9uPmwPQufVeWBg","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 14:00:41 [INF] [] User sign-in attempt started. Request: {"Email":"developer@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 14:00:41 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiZDUzNzNlYi1iNDE5LTRjNzYtYTQzZi04MjFiZTEzZjIxOGYiLCJlbWFpbCI6ImRldmVsb3BlckBnbWFpbC5jb20iLCJyb2xlIjoiRGV2ZWxvcGVyIiwibmJmIjoxNzQ4MzI5MjQxLCJleHAiOjE3NTA5MjEyNDEsImlhdCI6MTc0ODMyOTI0MSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.Gtr0_VTrSmcWVY7YndhFzfO6ej0tXgWB7lNz0iHIcHg","Message":"","Email":"developer@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 14:00:45 [INF] [TaskService] Retriving data...
+2025-05-27 14:00:45 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 14:00:45 [INF] [TaskService] Retriving data...
+2025-05-27 14:00:45 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 14:00:52 [INF] [TaskService] Updated task status successfully.
+2025-05-27 14:00:52 [INF] [TaskService] Retriving data...
+2025-05-27 14:00:52 [INF] [TaskService] Retrived Task details successfully.
+2025-05-27 14:01:05 [INF] [] User sign-in attempt started. Request: {"Email":"qa@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 14:01:05 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzNTQ0N2ViOC03ZjAwLTQ2ZDQtYWRiNy1iNzJmZGUyNDUzNDkiLCJlbWFpbCI6InFhQGdtYWlsLmNvbSIsInJvbGUiOiJRQSIsIm5iZiI6MTc0ODMyOTI2NSwiZXhwIjoxNzUwOTIxMjY1LCJpYXQiOjE3NDgzMjkyNjUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.yTzhsrVzba9b7-eO8vm6GA-t_zKp9dc6SzAr1nT8lM8","Message":"","Email":"qa@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 14:11:36 [INF] [] User sign-in attempt started. Request: {"Email":"tester@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 14:11:36 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjc1MzMxZi1mNzg0LTRjMGItOGVlOC0xNzI2YWUxNDYxNjUiLCJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJyb2xlIjoiVGVzdGVyIiwibmJmIjoxNzQ4MzI5ODk2LCJleHAiOjE3NTA5MjE4OTYsImlhdCI6MTc0ODMyOTg5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTU4In0.AFZVvFiDfbTSOJ62w4z0ONHeQO0vGbHiVGvSDevL7gE","Message":"","Email":"tester@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-27 14:11:41 [WRN] [] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-27 14:14:13 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-27 14:14:13 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWY3OWY1MC00MjY1LTRhZmYtYTBhZC1mZmY4MzU3NjYwZjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0ODMzMDA1MywiZXhwIjoxNzUwOTIyMDUzLCJpYXQiOjE3NDgzMzAwNTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.xDZZHSqr-FReFZQO0igHPuDaxPDVK2sxVflFBxS6ksI","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}

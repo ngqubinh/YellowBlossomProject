@@ -1,0 +1,14 @@
+2025-05-26 15:09:34 [WRN] [] Failed to determine the https port for redirect.
+2025-05-26 15:47:57 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-26 15:47:58 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODI0OTI3OCwiZXhwIjoxNzUwODQxMjc4LCJpYXQiOjE3NDgyNDkyNzgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.Mj_uhwVqlKX7CCQLF9pxZlaqz9HfqSO0MnuuT2DlIrE","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-26 15:49:08 [INF] [] User sign-in attempt started. Request: {"Email":"projectManager@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-26 15:49:08 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkMGY4ODU4OC02ZjQxLTQ1YTYtYWI0YS0yODg1OWY2ZTRiNzQiLCJlbWFpbCI6InByb2plY3RNYW5hZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9qZWN0TWFuYWdlciIsIm5iZiI6MTc0ODI0OTM0OCwiZXhwIjoxNzUwODQxMzQ4LCJpYXQiOjE3NDgyNDkzNDgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.ZVFnwSGA8A72kG0JQRBA-hTNOAhxY-YYPJ07P0vwGIc","Message":"","Email":"projectManager@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-26 15:49:33 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh031104@BB","$type":"SignInRequest"}
+2025-05-26 15:49:33 [INF] [] User signed in successfully. User: {"AccessToken":null,"Message":"The password is wrong","Email":null,"Products":[],"$type":"UserResponse"}
+2025-05-26 15:49:42 [INF] [] User sign-in attempt started. Request: {"Email":"admin@gmail.com","Password":"nguyenquocbinh214@BB","$type":"SignInRequest"}
+2025-05-26 15:49:42 [INF] [] User signed in successfully. User: {"AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWY3OWY1MC00MjY1LTRhZmYtYTBhZC1mZmY4MzU3NjYwZjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsIm5iZiI6MTc0ODI0OTM4MiwiZXhwIjoxNzUwODQxMzgyLCJpYXQiOjE3NDgyNDkzODIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1OCJ9.pt8eJ8MsBsBZlCmGFqvzkByR6nVTNY4Ptu5hirVizO8","Message":"","Email":"admin@gmail.com","Products":[],"$type":"UserResponse"}
+2025-05-26 16:11:08 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-26 16:11:08 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-26 16:11:08 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-26 16:11:08 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-26 16:11:08 [INF] [ProjectService] This message will be logged with ProjectService context

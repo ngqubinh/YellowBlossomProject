@@ -261,6 +261,167 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
             }
         }
 
+        public async Task<ProductStatisticsDTO> GetProductStatisticsAsync(Guid productId)
+        {
+            var product = await _dbContext.Products
+                .Include(p => p.Projects)
+                    .ThenInclude(pr => pr.ProjectStatus)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {productId} not found.");
+            }
+
+            return new ProductStatisticsDTO
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                CreatedAt = product.CreatedAt,
+                LastUpdated = product.LastUpdated,
+                TotalProjects = product.Projects.Count,
+                ProjectStatusDistribution = product.Projects
+                    .GroupBy(pr => pr.ProjectStatus.ProjectStatusName)
+                    .ToDictionary(g => g.Key, g => g.Count())
+            };
+        }
+
+        public async Task<List<ProductStatisticsDTO>> GetAllProductsStatisticsAsync()
+        {
+            var products = await _dbContext.Products
+                .Include(p => p.Projects)
+                    .ThenInclude(pr => pr.ProjectStatus)
+                .Include(p => p.Projects)
+                    .ThenInclude(pr => pr.Tasks)
+                        .ThenInclude(t => t.TaskStatus)
+                .Include(p => p.Projects)
+                    .ThenInclude(pr => pr.Tasks)
+                        .ThenInclude(t => t.TestCases)
+                            .ThenInclude(tc => tc.Bugs) // Include Bugs for TestCases
+                .Include(p => p.Projects)
+                    .ThenInclude(pr => pr.Tasks)
+                        .ThenInclude(t => t.TestRuns)
+                            .ThenInclude(tr => tr.Bugs) // Include Bugs for TestRuns
+                .ToListAsync();
+
+            return products.Select(p => new ProductStatisticsDTO
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                CreatedAt = p.CreatedAt,
+                LastUpdated = p.LastUpdated,
+                TotalProjects = p.Projects.Count,
+                ProjectStatusDistribution = p.Projects
+                    .GroupBy(pr => pr.ProjectStatus.ProjectStatusName)
+                    .ToDictionary(g => g.Key, g => g.Count()),
+                Projects = p.Projects.Select(pr => new ProjectDTO
+                {
+                    ProjectId = pr.ProjectId,
+                    ProjectName = pr.ProjectName,
+                    Description = pr.Description,
+                    StartDate = pr.StartDate,
+                    EndDate = pr.EndDate,
+                    ProjectStatusDTO = pr.ProjectStatus != null ? new ProjectStatusDTO
+                    {
+                        ProjectStatusId = pr.ProjectStatus.ProjectStatusId,
+                        ProjectStatusName = pr.ProjectStatus.ProjectStatusName
+                    } : null,
+                    ProductId = pr.ProductId,
+                    UserId = pr.UserId,
+                    ProjectTypeId = pr.ProjectTypeId,
+                    ProductManager = pr.ProductManager,
+                    Tasks = pr.Tasks.Select(t => new TaskDTO
+                    {
+                        TaskId = t.TaskId,
+                        Title = t.Title,
+                        Description = t.Description,
+                        StartDate = t.StartDate,
+                        EndDate = t.EndDate,
+                        CreatedBy = t.CreatedBy,
+                        TastStatusId = t.TaskStatusId,
+                        TaskStatus = t.TaskStatus != null ? new TaskStatusDTO
+                        {
+                            TaskStatusId = t.TaskStatus.TaskStatusId,
+                            TaskStatusName = t.TaskStatus.TaskStatusName
+                        } : null,
+                        TestCases = t.TestCases.Select(tc => new TestCaseDTO
+                        {
+                            TestCaseId = tc.TestCaseId,
+                            Title = tc.Title,
+                            Description = tc.Description,
+                            Bugs = tc.Bugs.Select(b => new BugDTO
+                            {
+                                BugId = b.BugId,
+                                Title = b.Title,
+                                Description = b.Description,
+                                StepsToReduces = b.StepsToReduce,
+                                Serverity = b.Serverity, // Note: Consider fixing typo to Severity
+                                ReportedDate = b.ReportedDate,
+                                ResolvedDate = b.ResolvedDate,
+                                PriorityId = b.PriorityId,
+                                TestRunId = b.TestRunId,
+                                TestCaseId = b.TestCaseId,
+                                ReportedByTeamId = b.ReportedByTeamId,
+                                AssginedToTeamId = b.AssignedToTeamId, // Note: Consider fixing typo to AssignedToTeamId
+                                Priority = b.Priority != null ? new PriorityDTO
+                                {
+                                    PriorityId = b.Priority.PriorityId,
+                                    // Map other Priority properties
+                                } : null,
+                                ReportedByTeam = b.ReportedByTeam != null ? new TeamDTO
+                                {
+                                    TeamId = b.ReportedByTeam.TeamId,
+                                    // Map other Team properties
+                                } : null,
+                                AssignedToTeam = b.AssignedToTeam != null ? new TeamDTO
+                                {
+                                    TeamId = b.AssignedToTeam.TeamId,
+                                    // Map other Team properties
+                                } : null
+                            }).ToList()
+                        }).ToList(),
+                        TestRuns = t.TestRuns.Select(tr => new TestRunDTO
+                        {
+                            TestRunId = tr.TestRunId,
+                            Title = tr.Title,
+                            //ExecutionDate = tr.ExecutionDate,
+                            Bugs = tr.Bugs.Select(b => new BugDTO
+                            {
+                                BugId = b.BugId,
+                                Title = b.Title,
+                                Description = b.Description,
+                                StepsToReduces = b.StepsToReduce,
+                                Serverity = b.Serverity,
+                                ReportedDate = b.ReportedDate,
+                                ResolvedDate = b.ResolvedDate,
+                                PriorityId = b.PriorityId,
+                                TestRunId = b.TestRunId,
+                                TestCaseId = b.TestCaseId,
+                                ReportedByTeamId = b.ReportedByTeamId,
+                                AssginedToTeamId = b.AssignedToTeamId,
+                                Priority = b.Priority != null ? new PriorityDTO
+                                {
+                                    PriorityId = b.Priority.PriorityId,
+                                    // Map other Priority properties
+                                } : null,
+                                ReportedByTeam = b.ReportedByTeam != null ? new TeamDTO
+                                {
+                                    TeamId = b.ReportedByTeam.TeamId,
+                                    // Map other Team properties
+                                } : null,
+                                AssignedToTeam = b.AssignedToTeam != null ? new TeamDTO
+                                {
+                                    TeamId = b.AssignedToTeam.TeamId,
+                                    // Map other Team properties
+                                } : null
+                            }).ToList()
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
+            }).ToList();
+        }
+
         #region extra functions
         protected bool CheckHttpContextAndUser()
         {

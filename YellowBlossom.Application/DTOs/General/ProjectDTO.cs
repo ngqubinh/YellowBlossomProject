@@ -18,5 +18,6 @@
         public string ProductManager { get; set; } = string.Empty;
         public List<ProjectTeamDTO>? ProjectTeam { get; set; }
         public string? Message { get; set; }
+        public List<TaskDTO>? Tasks { get; set; }
     }
 }

@@ -293,6 +293,22 @@
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
+    "Method": "GetProductStatistics",
+    "RelativePath": "api/Product/{id}/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
     "Method": "CreateProductAsync",
     "RelativePath": "api/Product/products",
     "HttpMethod": "POST",
@@ -419,6 +435,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "YellowBlossom.Presentation.Controllers.ProductController",
+    "Method": "GetAllProductsStatistics",
+    "RelativePath": "api/Product/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "YellowBlossom.Presentation.Controllers.ProjectController",

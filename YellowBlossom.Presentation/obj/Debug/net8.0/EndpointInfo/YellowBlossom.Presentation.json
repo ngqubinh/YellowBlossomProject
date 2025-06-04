@@ -730,6 +730,41 @@
         }
       }
     },
+    "/api/Product/{id}/statistics": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Product/statistics": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Project/products/{productId}/projects": {
       "get": {
         "tags": [
@@ -5132,6 +5167,13 @@
           "message": {
             "type": "string",
             "nullable": true
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDTO"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -5329,6 +5371,20 @@
           },
           "message": {
             "type": "string",
+            "nullable": true
+          },
+          "testCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCaseDTO"
+            },
+            "nullable": true
+          },
+          "testRuns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestRunDTO"
+            },
             "nullable": true
           }
         },
@@ -5530,6 +5586,13 @@
           "message": {
             "type": "string",
             "nullable": true
+          },
+          "bugs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BugDTO"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -5598,6 +5661,13 @@
           },
           "message": {
             "type": "string",
+            "nullable": true
+          },
+          "bugs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BugDTO"
+            },
             "nullable": true
           }
         },

@@ -1,0 +1,6 @@
+2025-05-26 16:15:54 [WRN] [] Failed to determine the https port for redirect.
+2025-05-26 16:22:08 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-26 16:22:08 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-26 16:22:08 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-26 16:22:08 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-26 16:22:08 [INF] [ProjectService] This message will be logged with ProjectService context

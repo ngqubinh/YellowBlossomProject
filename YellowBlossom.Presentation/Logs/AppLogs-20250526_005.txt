@@ -1,0 +1,7 @@
+2025-05-26 16:11:18 [WRN] [] Failed to determine the https port for redirect.
+2025-05-26 16:11:23 [WRN] [ProductService] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-26 16:13:23 [INF] [ProductService] This message will be logged with ProductService context
+2025-05-26 16:13:23 [INF] [TaskService] This message will be logged with TaskService context
+2025-05-26 16:13:23 [INF] [TeamService] This message will be logged with TeamService context
+2025-05-26 16:13:23 [INF] [Taskervice] This message will be logged with TaskService context
+2025-05-26 16:13:23 [INF] [ProjectService] This message will be logged with ProjectService context

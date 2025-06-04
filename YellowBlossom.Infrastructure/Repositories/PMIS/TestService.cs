@@ -1098,6 +1098,13 @@ namespace YellowBlossom.Infrastructure.Repositories.PMIS
                     return new List<TaskDTO>();
                 }
 
+                List<string> allowedRoles = new List<string> { StaticUserRole.QA };
+                if (!HasAnyRole(this._http.HttpContext!, allowedRoles))
+                {
+                    Console.WriteLine("User does not have permission to get the done tasks.");
+                    return new List<TaskDTO>();
+                }
+
                 string? userId = GeneralService.GetUserIdFromContext(this._http.HttpContext!);
                 if (string.IsNullOrEmpty(userId))
                 {
