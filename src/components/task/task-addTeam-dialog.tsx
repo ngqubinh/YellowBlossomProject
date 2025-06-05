@@ -59,9 +59,9 @@ export function AssignTeamToTaskDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px] bg-gray-800 text-white">
         <DialogHeader>
-          <DialogTitle>Assign Team to Task</DialogTitle>
+          <DialogTitle>Gán team vào Task</DialogTitle>
           <DialogDescription className="text-gray-300">
-            Select a team to assign to the task. Click "Save" when done.
+            Chọn team từ danh sách. Ấn "Lưu" sau khi chọn!
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -96,14 +96,14 @@ export function AssignTeamToTaskDialog({
               onClick={() => onOpenChange(false)}
               disabled={loading}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
               className="bg-blue-600 hover:bg-blue-700"
               disabled={loading || !formData.teamId}
             >
-              {loading ? "Processing..." : "Save"}
+              {loading ? "Đang xử lý..." : "Lưu"}
             </Button>
           </DialogFooter>
         </form>

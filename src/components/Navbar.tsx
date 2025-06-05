@@ -96,10 +96,10 @@ export default function Navbar() {
         ) : (
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/auth/login">Log in</Link>
+              <Link href="/auth/login">Đăng nhập</Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="/auth/register">Sign up</Link>
+              <Link href="/auth/register">Đăng ký</Link>
             </Button>
           </div>
         )}

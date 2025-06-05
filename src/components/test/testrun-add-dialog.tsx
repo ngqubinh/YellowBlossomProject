@@ -51,30 +51,30 @@ export function TestRunAddDialog({ taskId, onTestRunCreated }: TestRunAddDialogP
       </DialogTrigger>
       <DialogContent className="bg-gray-800 text-white max-w-md">
         <DialogHeader>
-          <DialogTitle>Create New Test Run</DialogTitle>
+          <DialogTitle>Tạo mới testrun</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Tiêu đề</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter test run title"
+              placeholder="Nhập tiêu đề"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Mô tả</Label>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter test run description"
+              placeholder="Nhập mô tả"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="runDate">Run Date</Label>
+            <Label htmlFor="runDate">Ngạy thực thi</Label>
             <Input
               id="runDate"
               type="datetime-local"
@@ -84,10 +84,10 @@ export function TestRunAddDialog({ taskId, onTestRunCreated }: TestRunAddDialogP
           </div>
           <DialogFooter>
             <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-              Cancel
+              Hủy
             </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? 'Creating...' : 'Create'}
+              {loading ? 'Đang tạo...' : 'Thêm'}
             </Button>
           </DialogFooter>
         </form>

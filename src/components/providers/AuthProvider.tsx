@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Chuyển hướng dựa trên vai trò
       switch (role) {
         case 'ADMIN':
-          router.push('/product-dashboard');
+          router.push('/dashboard');
           break;
         case 'ProjectManager':
           router.push('/project/related-page');

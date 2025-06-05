@@ -44,9 +44,9 @@ export default function LoginPage() {
   return (
     <Card className="w-full max-w-md shadow-lg">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Đăng nhập</CardTitle>
         <CardDescription className="text-center">
-          Enter your credentials to access your account
+          Điền thông tin để truy cập vào hệ thống
         </CardDescription>
       </CardHeader>
       {error && (
@@ -71,12 +71,12 @@ export default function LoginPage() {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Mật khẩu</Label>
               <Link 
                 href="/auth/reset-password" 
                 className="text-xs text-primary hover:underline"
               >
-                Forgot password?
+                Quên mật khẩu?
               </Link>
             </div>
             <Input 
@@ -94,15 +94,15 @@ export default function LoginPage() {
             className="w-full" 
             disabled={isLoading}
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "Đang kiểm tra..." : "Đăng nhập"}
           </Button>
           <div className="text-center text-sm">
-            Don't have an account?{" "}
+            Bạn chưa có tài khoản?{" "}
             <Link 
               href="/auth/register" 
               className="text-primary hover:underline"
             >
-              Sign up
+              Đăng ký
             </Link>
           </div>
         </CardFooter>

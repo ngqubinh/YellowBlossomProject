@@ -26,8 +26,8 @@ const LoginForm = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-2xl font-bold">Sign In</h1>
-          <p className="mt-2 text-gray-600">Sign in to access your account</p>
+          <h1 className="text-2xl font-bold">Đăng Nhập</h1>
+          <p className="mt-2 text-gray-600">Đăng nhập để truy cập vào hệ thống</p>
         </div>
         
         {error && (
@@ -54,7 +54,7 @@ const LoginForm = () => {
           
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
+              Mật khẩu
             </label>
             <input
               id="password"
@@ -80,9 +80,9 @@ const LoginForm = () => {
         
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
+            Bạn chưa có tài khoản?{' '}
             <Link href="/auth/register" className="text-indigo-600 hover:text-indigo-500">
-              Sign up
+              Đăng ký
             </Link>
           </p>
         </div>
